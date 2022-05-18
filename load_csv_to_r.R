@@ -5,7 +5,7 @@ library(tidyverse)
 
 tables = c('roster', 'scoring_regular_season', 'team_analytics_5v5', 'team_statistics')
 years = c(2021:2008)
-file_folder_location = 'C:\\Users\\sethh\\OneDrive\\Documents\\R\\red_wings_data\\DET'
+file_folder_location = 'data\\DET'
 team_designate = 'DET'
 
 

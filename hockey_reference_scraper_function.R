@@ -2,7 +2,6 @@
 
 library(tidyverse)
 library(rvest)
-library(purrr)
 
 hockey_scraper<-function(website, file_folder_location){
   web_page <- read_html(website)
@@ -327,10 +326,18 @@ hockey_scraper<-function(website, file_folder_location){
 }
 
 # need to loop through these, I thought I had these somewhere else. Need to add folder for different team, can R make Folders?
-#hockey_scraper('https://www.hockey-reference.com/teams/DET/2021.html', 'C:/Users/sethh/OneDrive/Documents/R/red_wings_data/DET')
-#hockey_scraper('https://www.hockey-reference.com/teams/DET/2020.html', 'C:/Users/sethh/OneDrive/Documents/R/red_wings_data/DET')
-#hockey_scraper('https://www.hockey-reference.com/teams/DET/2019.html', 'C:/Users/sethh/OneDrive/Documents/R/red_wings_data/DET')
-#hockey_scraper('https://www.hockey-reference.com/teams/DET/2008.html', 'C:/Users/sethh/OneDrive/Documents/R/red_wings_data/DET')
+#hockey_scraper('https://www.hockey-reference.com/teams/DET/2021.html', 'data/DET')
+#hockey_scraper('https://www.hockey-reference.com/teams/DET/2020.html', 'data/DET')
+#hockey_scraper('https://www.hockey-reference.com/teams/DET/2019.html', 'data/DET')
+#hockey_scraper('https://www.hockey-reference.com/teams/DET/2008.html', 'data/DET')
 
+years = c(2021:2008)
+website = 'https://www.hockey-reference.com/teams/DET/'
+folder = 'data/DET'
 
+#loop through years of redwings hockey
+for (year in years){
+  site = str_c(website, year, '.html', sep = '')
+  hockey_scraper(site, folder)
+}
 
