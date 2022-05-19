@@ -19,10 +19,12 @@ for (table in tables){
     #print(file_name)
     file_locale = str_c(file_folder_location,'\\',file_name,'.csv')
     #print(file_locale)
-    assign(file_name,read_csv(file_locale))
+    assign(file_name,read_csv(file_locale)) #assigns table name in R to csv file read through read csv
   }
     
 }
+
+wings_stats_combined<-read_csv('~/R/Shiny_apps/red_wings_data/data/DET/wings_stats_combined.csv')
 
 # team analytics 5 v 5
 
