@@ -291,7 +291,8 @@ hockey_scraper<-function(website, file_folder_location){
                                    Hits = player_hits,
                                    `Faceoff Wins` = player_faceoff_wins,
                                    `Faceoff Losses` = player_faceoff_losses,
-                                   `Faceoff Percentage` = player_faceoff_wins/(player_faceoff_wins+player_faceoff_losses)
+                                   `Faceoff Percentage` = player_faceoff_wins/(player_faceoff_wins+player_faceoff_losses),
+                                   year = as.numeric(str_sub(website,44,48))
   )
   
   
@@ -324,6 +325,8 @@ hockey_scraper<-function(website, file_folder_location){
   return(file_names)
   
 }
+
+##need to move items below this to somewhere else
 
 # need to loop through these, I thought I had these somewhere else. Need to add folder for different team, can R make Folders?
 #hockey_scraper('https://www.hockey-reference.com/teams/DET/2021.html', 'data/DET')

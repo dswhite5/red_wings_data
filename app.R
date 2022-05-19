@@ -23,9 +23,8 @@ ui <- navbarPage('Red wings Data Analysis',
                                                                           choices = c('Goals',
                                                                                       'Assists',
                                                                                       'Points',
-                                                                                      '+/-',
-                                                                                      'PIM'),
-                                                                          selected = 'Goals'
+                                                                                      'PIM'
+                                                                                      )
                                                                           )
                                                        )
                                                       ),
@@ -43,10 +42,28 @@ ui <- navbarPage('Red wings Data Analysis',
                  )
 
 server <- function(input, output){
-  output$stat_table <- renderTable(scoring_regular_season_DET_2008%>%
-                                     filter(Goals == max(Goals))%>%
-                                     select(`Player Name`, input$stat)
-                                   )
+  name <- reactive({input$stat})
+  output$stat_table <- renderTable({
+  if (name() == 'Goals'){
+    scoring_regular_season_DET_2008%>%
+      filter(Goals == max(Goals))%>%
+      select(`Player Name`, Goals)
+  }else if (name() == 'Assists'){
+    scoring_regular_season_DET_2008%>%
+      filter(Assists == max(Assists))%>%
+      select(`Player Name`, Assists)
+    
+  }else if (name() == 'Points'){
+    scoring_regular_season_DET_2008%>%
+      filter(Points == max(Points))%>%
+      select(`Player Name`, Points)
+  }else if (name() == 'PIM'){
+    scoring_regular_season_DET_2008%>%
+      filter(PIM == max(PIM))%>%
+      select(`Player Name`, PIM)
+  }
+    
+  })
   
 }
 
