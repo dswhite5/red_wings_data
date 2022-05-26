@@ -55,10 +55,10 @@ ui <- navbarPage('Red wings Data Analysis',
                                                 Below the tables are explinations for the terms used in analysis on this site and some of the more commonly used hockey
                                                 statistics.'),
                                               h2('Red Wings Statistics for 2008 and 2009'),
-                                              tableOutput('combined_stats_1st'),
+                                              tableOutput('combined_stats_1st'), #plot stats table
                                               tableOutput('combined_stats_2nd'),
                                               h2('Regular Season Scoring for 2008 and 2009'),
-                                              tableOutput('scoring_all_1st'),
+                                              tableOutput('scoring_all_1st'), #Plot scoring table
                                               tableOutput('scoring_all_2nd'),
                                               p('S% -- Shooting percentage at 5-on-5, a shot is anytime the puck would have went in the net for a goal but the goalie stopped
                                                 it. misses, blocked shots, or hitting the post do not count as shots. Shooting percentage then is the number of goals made
@@ -84,10 +84,14 @@ ui <- navbarPage('Red wings Data Analysis',
                                     mainPanel(h1('Exploratory Data Analysis'),
                                               p('This is a paragraph about EDA'),
                                               p('Lets Talk about this first plot'),
+                                              plotOutput('Goals_20'),
+                                              p('gonna talk about this plot too'),
                                               plotOutput('ggpairs_corsi'),
                                               p('Lets talk about this second plot'),
                                               plotOutput('ggpairs_shots'),
                                               p('Lets talk about this third plot'),
+                                              plotOutput('GF_v_W'),
+                                              p('lets talk about this 4th plot'),
                                               plotOutput('CF_percent_v_W')
                                               )
                                     )
@@ -102,7 +106,7 @@ ui <- navbarPage('Red wings Data Analysis',
                  )
 
 server <- function(input, output){
-  #######Code for stat sumarry table on introduction page###############################3
+  #######Code for stat sumarry table on introduction page###################################################################
   name <- reactive({input$stat}) #use variable in if else statements
   output$stat_table <- renderTable({
   if (name() == 'Goals'){
@@ -129,7 +133,7 @@ server <- function(input, output){
   }
     
   })
-  #########Code for data Explanation page##########################
+  #########Code for data Explanation page#################################################################
   #Combine stats summary Table 2008 and 2009 1st half
   output$combined_stats_1st <- renderTable({
     wings_stats_combined%>%
@@ -157,7 +161,19 @@ server <- function(input, output){
       mutate(year = as.integer(year))%>%
       head(2)
   })
-  ########output for EDA tab##########################################
+  ########output for EDA tab#################################################################################
+  ##box showing number of 20 goal scorers per season
+  output$Goals_20 <- renderPlot({
+    scoring_regular_season_DET_all%>%
+      filter(Goals >= 20)%>%
+      ggplot()+
+      geom_bar(mapping = aes(x= year), )+
+      labs(title = 'Number of Players with More than 20 Goals per Season',
+           x = 'Final year of Season',
+           y = 'Number of players')+
+      scale_x_continuous(breaks =c(2008:2021))
+  })
+  
   #ggpairs(correlation matrix) for selected columns
   output$ggpairs_corsi <- renderPlot({
     wings_stats_combined%>%
@@ -180,6 +196,18 @@ server <- function(input, output){
       labs(title = 'Scatter plot of Corsi For Percentage and Wins for the Detroit Red Wings', 
            subtitle = 'For the 2007-2008 season till the 2020-2021 season',
            x = 'Corsi For Percentage (Percentage of shot attempts made by Red Wings)',
+           y = 'Wins for the Detroit Red Wings')+
+      scale_y_continuous(n.breaks = 8)+ # number of ticks on axes to 8
+      scale_x_continuous(n.breaks = 8)+
+      theme_classic()
+  })
+  output$GF_v_W <- renderPlot({
+    wings_stats_combined%>%
+      ggplot()+
+      geom_point(mapping = aes(x=`GF`, y = W))+ #change titles of scatter plot and axis
+      labs(title = 'Scatter plot of Goals For and Wins for the Detroit Red Wings', 
+           subtitle = 'For the 2007-2008 season till the 2020-2021 season',
+           x = 'Goals For(number of Goals scored by the Detroit Red Wings',
            y = 'Wins for the Detroit Red Wings')+
       scale_y_continuous(n.breaks = 8)+ # number of ticks on axes to 8
       scale_x_continuous(n.breaks = 8)+
