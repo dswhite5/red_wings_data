@@ -292,7 +292,7 @@ hockey_scraper<-function(website, file_folder_location){
                                    `Faceoff Wins` = player_faceoff_wins,
                                    `Faceoff Losses` = player_faceoff_losses,
                                    `Faceoff Percentage` = player_faceoff_wins/(player_faceoff_wins+player_faceoff_losses),
-                                   year = as.numeric(str_sub(website,44,48))
+                                   year = round(as.numeric(str_sub(website,44,48)))
   )
   
   

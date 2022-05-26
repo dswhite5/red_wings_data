@@ -44,10 +44,9 @@ team_statistics_combined <- bind_rows(team_statistics_DET_2008,
 
 wings_stats_combined<-team_analytics_combined%>%
   inner_join(team_statistics_combined, by = c('year', 'Team'))%>%
-  select(!c(`xGF`,`xGA`,`axDiff`:`HDCO%`,`GP`)) #these stats werent recorded until 2017 season, so removed from dataset
+  select(!c(`xGF`,`xGA`,`axDiff`:`HDCO%`,`GP`))%>% #these stats werent recorded until 2017 season, so removed from dataset
+  mutate(year = round(year))
 
-#write_csv(wings_stats_combined, '~/R/Shiny_apps/red_wings_data/data/DET/wings_stats_combined.csv')
-#write_csv(scoring_regular_season_DET_all, '~/R/Shiny_apps/red_wings_data/data/DET/scoring_regular_season_DET_all.csv')
 
 scoring_regular_season_DET_all <- bind_rows(scoring_regular_season_DET_2008,
                                         scoring_regular_season_DET_2009,
@@ -63,3 +62,6 @@ scoring_regular_season_DET_all <- bind_rows(scoring_regular_season_DET_2008,
                                         scoring_regular_season_DET_2019,
                                         scoring_regular_season_DET_2020,
                                         scoring_regular_season_DET_2021)
+
+#write_csv(wings_stats_combined, '~/R/Shiny_apps/red_wings_data/data/DET/wings_stats_combined.csv')
+#write_csv(scoring_regular_season_DET_all, '~/R/Shiny_apps/red_wings_data/data/DET/scoring_regular_season_DET_all.csv')

@@ -1,6 +1,6 @@
 #redwings project
 #shiny app
-
+source('load_csv_to_r.R')
 library(tidyverse)
 library(shiny)
 
@@ -50,10 +50,29 @@ ui <- navbarPage('Red wings Data Analysis',
                                                 need to score more and get scored on less. But the statistics can still help provide insights and those insights are easier
                                                 to see when you have a good understanding of what the data consists of. So this page will take a look at the data this app 
                                                 will be using and what the information in each sheet means."),
+                                              p('Below are the two main tables that will be used for analysis on this site. The data was scraped from project-hockey.com.
+                                                Below the tables are explinations for the terms used in analysis on this site and some of the more commonly used hockey
+                                                statistics.'),
                                               h2('Red Wings Statistics for 2008 and 2009'),
-                                              tableOutput('combined_stats'),
+                                              tableOutput('combined_stats_1st'),
+                                              tableOutput('combined_stats_2nd'),
                                               h2('Regular Season Scoring for 2008 and 2009'),
-                                              tableOutput('scoring_all')
+                                              tableOutput('scoring_all_1st'),
+                                              tableOutput('scoring_all_2nd'),
+                                              p('S% -- Shooting percentage at 5-on-5, a shot is anytime the puck would have went in the net for a goal but the goalie stopped
+                                                it. misses, blocked shots, or hitting the post do not count as shots. Shooting percentage then is the number of goals made
+                                                divided by the number of shots. Essentially how often do you score per 100 shots.'),
+                                              p('SV% -- Save percentage at 5-on-5. A save is anytime the puck the would have gone in the net but the goalie prevents it. So 
+                                                save percentage is the number of saves made divided by total shots taken. It is essentially number of saves made out of every
+                                                100 shots'),
+                                              p('CF -- Corsi For at 5 on 5. Corsi is the total of all shot attempts. Shots and blocks and misses all combined together.
+                                                So Corsi For is the total of all shot blocks and misses for the particular team(in this case the Red wings.'),
+                                              p('CA -- Corsi Against at 5 on 5. Corsi is the total of all shot attempts. Shots and blocks and misses all combined together.
+                                                So Corsi Against is the total of all shots blocks and misses against a particular team(in this case the Red Wings).'),
+                                              p('CF% -- Corsi For % at 5 on 5. The percentage of shots that that are for the particular team out of all shot taken.
+                                                Calculated with CF / (CF + CA)'),
+                                              
+                                              p('')
                                               )
                                     )
                           ),
@@ -103,13 +122,29 @@ server <- function(input, output){
   })
   #########Code for data Explanation page#############
   #Combine stats summary Table
-  output$combined_stats <- renderTable({
+  output$combined_stats_1st <- renderTable({
     wings_stats_combined%>%
+      select(1:18)%>%
+      mutate(year = as.integer(year))%>%
       head(2)
   })
+  
+  output$combined_stats_2nd <- renderTable({
+    wings_stats_combined%>%
+      select(1,19:36)%>%
+      head(2)
+  })
+  
   #Scoring regular season DET all table
-  output$scoring_all <- renderTable({
+  output$scoring_all_1st <- renderTable({
     scoring_regular_season_DET_all%>%
+      select(1:14)%>%
+      head(2)
+  })
+  output$scoring_all_2nd <- renderTable({
+    scoring_regular_season_DET_all%>%
+      select(1,15:27)%>%
+      mutate(year = as.integer(year))%>%
       head(2)
   })
   
