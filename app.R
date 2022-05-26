@@ -1,8 +1,9 @@
 #redwings project
 #shiny app
-source('load_csv_to_r.R')
-library(tidyverse)
-library(shiny)
+#source('load_csv_to_r.R')
+#library(tidyverse)
+#library(shiny)
+#library(GGally)
 
 ui <- navbarPage('Red wings Data Analysis',
 #################Tab panel for introduction##############################################################                 
@@ -81,7 +82,13 @@ ui <- navbarPage('Red wings Data Analysis',
                  tabPanel('Exploratory Data Analysis',
                           fluidPage(titlePanel(h1('What are We Looking at?')),
                                     mainPanel(h1('Exploratory Data Analysis'),
-                                              p('This is a paragraph about EDA')
+                                              p('This is a paragraph about EDA'),
+                                              p('Lets Talk about this first plot'),
+                                              plotOutput('ggpairs_corsi'),
+                                              p('Lets talk about this second plot'),
+                                              plotOutput('ggpairs_shots'),
+                                              p('Lets talk about this third plot'),
+                                              plotOutput('CF_percent_v_W')
                                               )
                                     )
                           ),
@@ -122,34 +129,59 @@ server <- function(input, output){
   }
     
   })
-  #########Code for data Explanation page#############
-  #Combine stats summary Table
+  #########Code for data Explanation page##########################
+  #Combine stats summary Table 2008 and 2009 1st half
   output$combined_stats_1st <- renderTable({
     wings_stats_combined%>%
       select(1:18)%>%
       mutate(year = as.integer(year))%>%
       head(2)
   })
-  
+  #Combine stats Table 2008 and 2009 2nd half
   output$combined_stats_2nd <- renderTable({
     wings_stats_combined%>%
       select(1,19:36)%>%
       head(2)
   })
   
-  #Scoring regular season DET all table
+  #Scoring regular season DET all table 2008 and 2009 1st half
   output$scoring_all_1st <- renderTable({
     scoring_regular_season_DET_all%>%
       select(1:14)%>%
       head(2)
   })
+  #Scoring regular season DET all table 2008 and 2009 2nd half
   output$scoring_all_2nd <- renderTable({
     scoring_regular_season_DET_all%>%
       select(1,15:27)%>%
       mutate(year = as.integer(year))%>%
       head(2)
   })
-  
+  ########output for EDA tab##########################################
+  #ggpairs(correlation matrix) for selected columns
+  output$ggpairs_corsi <- renderPlot({
+    wings_stats_combined%>%
+      select(c(12,2:7))%>%
+      ggpairs()+
+      labs(title = 'Correlation Matrix for Selected Columns Red Wings Statistical Data' )
+  })
+  #ggpairs(correlation matrix) for selected columns
+  output$ggpairs_shots <- renderPlot({
+    wings_stats_combined%>%
+      select(c(12,30:36))%>%
+      ggpairs()+
+      labs(title = 'Correlation Matrix for Selected Columns Red Wings Statistical Data' )
+  })
+  #scatter plot of CF% against Wins
+  output$CF_percent_v_W <- renderPlot({
+    wings_stats_combined%>%
+      ggplot()+
+      geom_point(mapping = aes(x=`CF%`, y = W))+
+      labs(title = 'Scatter plot of Corsi For Percentage and Wins for the Detroit Red Wings',
+           subtitle = 'For the 2007-2008 season till the 2020-2021 season',
+           x = 'Corsi For Percentage\nPercent of shot attempts made by Red Wings',
+           y = 'Wins for the Detroit Red Wings')
+  })
 }
 
 
