@@ -176,11 +176,14 @@ server <- function(input, output){
   output$CF_percent_v_W <- renderPlot({
     wings_stats_combined%>%
       ggplot()+
-      geom_point(mapping = aes(x=`CF%`, y = W))+
-      labs(title = 'Scatter plot of Corsi For Percentage and Wins for the Detroit Red Wings',
+      geom_point(mapping = aes(x=`CF%`, y = W))+ #change titles of scatter plot and axis
+      labs(title = 'Scatter plot of Corsi For Percentage and Wins for the Detroit Red Wings', 
            subtitle = 'For the 2007-2008 season till the 2020-2021 season',
-           x = 'Corsi For Percentage\nPercent of shot attempts made by Red Wings',
-           y = 'Wins for the Detroit Red Wings')
+           x = 'Corsi For Percentage (Percentage of shot attempts made by Red Wings)',
+           y = 'Wins for the Detroit Red Wings')+
+      scale_y_continuous(n.breaks = 8)+ # number of ticks on axes to 8
+      scale_x_continuous(n.breaks = 8)+
+      theme_classic()
   })
 }
 
