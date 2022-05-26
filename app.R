@@ -71,8 +71,10 @@ ui <- navbarPage('Red wings Data Analysis',
                                                 So Corsi Against is the total of all shots blocks and misses against a particular team(in this case the Red Wings).'),
                                               p('CF% -- Corsi For % at 5 on 5. The percentage of shots that that are for the particular team out of all shot taken.
                                                 Calculated with CF / (CF + CA)'),
-                                              
-                                              p('')
+                                              p('W -- Wins'),
+                                              p('PPO -- Power Play Opportunities. The number of times the team had a power play'),
+                                              p('PP% -- Power Play Percentage. The number of times the team scored on the power play.'),
+                                              p('SH -- Short Handed Goals')
                                               )
                                     )
                           ),
