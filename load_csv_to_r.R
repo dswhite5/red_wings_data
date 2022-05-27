@@ -23,7 +23,7 @@ for (table in tables){
   }
     
 }
-
+data_descrp <- read_csv('~/R/Shiny_apps/red_wings_data/data/scoring_stat_data_description.csv')
 wings_stats_combined<-read_csv('~/R/Shiny_apps/red_wings_data/data/DET/wings_stats_combined.csv')
 scoring_regular_season_DET_all <- read_csv('~/R/Shiny_apps/red_wings_data/data/DET/scoring_regular_season_DET_all.csv')
 

@@ -1,9 +1,9 @@
 #redwings project
 #shiny app
 #source('load_csv_to_r.R')
-#library(tidyverse)
-#library(shiny)
-#library(GGally)
+library(tidyverse)
+library(shiny)
+library(GGally)
 
 ui <- navbarPage('Red wings Data Analysis',
 #################Tab panel for introduction##############################################################                 
@@ -67,22 +67,15 @@ ui <- navbarPage('Red wings Data Analysis',
                                                           ),
                                               textOutput('attributes'),
                                               br(),
-                                              p('S% -- Shooting percentage at 5-on-5, a shot is anytime the puck would have went in the net for a goal but the goalie stopped
-                                                it. misses, blocked shots, or hitting the post do not count as shots. Shooting percentage then is the number of goals made
-                                                divided by the number of shots. Essentially how often do you score per 100 shots.'),
-                                              p('SV% -- Save percentage at 5-on-5. A save is anytime the puck the would have gone in the net but the goalie prevents it. So 
-                                                save percentage is the number of saves made divided by total shots taken. It is essentially number of saves made out of every
-                                                100 shots'),
-                                              p('CF -- Corsi For at 5 on 5. Corsi is the total of all shot attempts. Shots and blocks and misses all combined together.
-                                                So Corsi For is the total of all shot blocks and misses for the particular team(in this case the Red wings.'),
-                                              p('CA -- Corsi Against at 5 on 5. Corsi is the total of all shot attempts. Shots and blocks and misses all combined together.
-                                                So Corsi Against is the total of all shots blocks and misses against a particular team(in this case the Red Wings).'),
-                                              p('CF% -- Corsi For % at 5 on 5. The percentage of shots that that are for the particular team out of all shot taken.
-                                                Calculated with CF / (CF + CA)'),
-                                              p('W -- Wins'),
-                                              p('PPO -- Power Play Opportunities. The number of times the team had a power play'),
-                                              p('PP% -- Power Play Percentage. The number of times the team scored on the power play.'),
-                                              p('SH -- Short Handed Goals')
+                                              br(),
+                                              br(),
+                                              br(),
+                                              br(),
+                                              br(),
+                                              br(),
+                                              br(),
+                                              br()
+                                              
                                               )
                                     )
                           ),

@@ -65,8 +65,13 @@ scoring_regular_season_DET_all <- bind_rows(scoring_regular_season_DET_2008,
 
 data_names = c(names(wings_stats_combined), names(scoring_regular_season_DET_all)[-27])#combine the names of each attribute and remove duplicate year from end of scoring
 #descriptions for attribute in wings combined statistics
-stats_descrip = c('Team Name','Shooting percentage at 5-on-5','Save percentage at 5-on-5','Shooting % + Save %','Corsi For at 5 on 5:Shots + Blocks + Misses',
-                  'Corsi Against at 5 on 5:Shots + Blocks + Misses','CF% -- Corsi For % at 5 on 5: CF / (CF + CA)','Actual goals for (5-on-5)','Actual goals against (5-on-5)',
+stats_descrip = c('Team Name',
+                  'Shooting percentage at 5-on-5, a shot is anytime the puck would have went in the net for a goal but the goalie stopped it. misses, blocked shots, or hitting the post do not count as shots. Shooting percentage then is the number of goals made divided by the number of shots. Essentially how often do you score per 100 shots',
+                  'Save percentage at 5-on-5. A save is anytime the puck the would have gone in the net but the goalie prevents it. So save percentage is the number of saves made divided by total shots taken. It is essentially number of saves made out of every 100 shots5','Shooting % + Save %',
+                  'Corsi For at 5 on 5Corsi is the total of all shot attempts. Shots and blocks and misses all combined together.So Corsi For is the total of all shot blocks and misses for the particular team(in this case the Red wings.',
+                  'Corsi Against at 5 on 5: Corsi is the total of all shot attempts. Shots and blocks and misses all combined together.So Corsi Against is the total of all shots blocks and misses against a particular team(in this case the Red Wings',
+                  'CF% -- Corsi For % at 5 on 5:The percentage of shots that that are for the particular team out of all shot taken.Calculated with CF / (CF + CA)','Actual goals for (5-on-5)',
+                  'Actual goals against (5-on-5)',
                   'Last year of Season played','Average age of team weighted by time on ice','Number of Wins','Number of Losses','Number of Overtime/Shootout Losses',
                   'Points in a season','Points percentage (i.e., points divided by maximum points)','Goals For(number of Goals Scored','Goals Against(Number of Goals scored on the team)',
                   'Simple Rating System; a team rating that takes into account average goal differential and strength of schedule. The rating is denominated in goals above/below average, where zero is average.',
@@ -89,7 +94,7 @@ data_descrp <- tibble(data_names,
 data_descrp<-data_descrp%>%
   pivot_wider(names_from = data_names, values_from = attribute_descrp)
   
-
+write_csv(data_descrp, '~/R/Shiny_apps/red_wings_data/data/scoring_stat_data_description.csv')
 #write_csv(wings_stats_combined, '~/R/Shiny_apps/red_wings_data/data/DET/wings_stats_combined.csv')
 #write_csv(scoring_regular_season_DET_all, '~/R/Shiny_apps/red_wings_data/data/DET/scoring_regular_season_DET_all.csv')
 
