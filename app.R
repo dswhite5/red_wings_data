@@ -63,7 +63,7 @@ ui <- navbarPage('Red wings Data Analysis',
                                               selectInput('attributes',
                                                           label = 'Select Attribute',
                                                           choices = names(data_descrp),
-                                                          selected = 
+                                                          selected = 'Team'
                                                           ),
                                               textOutput('attributes'),
                                               br(),
@@ -169,9 +169,9 @@ server <- function(input, output){
       head(2)
   })
   # Text output for data attribute description
-  #attribute <- reactive(input$attribute)
+  attribute <- reactive(input$attributes)
   output$attributes <- renderText({
-    data_descrp[input$attribute][[1]]
+    data_descrp[attribute()][[1]]
   })
   ########output for EDA tab#################################################################################
   ##box showing number of 20 goal scorers per season
