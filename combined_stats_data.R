@@ -63,6 +63,33 @@ scoring_regular_season_DET_all <- bind_rows(scoring_regular_season_DET_2008,
                                         scoring_regular_season_DET_2020,
                                         scoring_regular_season_DET_2021)
 
+data_names = c(names(wings_stats_combined), names(scoring_regular_season_DET_all)[-27])#combine the names of each attribute and remove duplicate year from end of scoring
+#descriptions for attribute in wings combined statistics
+stats_descrip = c('Team Name','Shooting percentage at 5-on-5','Save percentage at 5-on-5','Shooting % + Save %','Corsi For at 5 on 5:Shots + Blocks + Misses',
+                  'Corsi Against at 5 on 5:Shots + Blocks + Misses','CF% -- Corsi For % at 5 on 5: CF / (CF + CA)','Actual goals for (5-on-5)','Actual goals against (5-on-5)',
+                  'Last year of Season played','Average age of team weighted by time on ice','Number of Wins','Number of Losses','Number of Overtime/Shootout Losses',
+                  'Points in a season','Points percentage (i.e., points divided by maximum points)','Goals For(number of Goals Scored','Goals Against(Number of Goals scored on the team)',
+                  'Simple Rating System; a team rating that takes into account average goal differential and strength of schedule. The rating is denominated in goals above/below average, where zero is average.',
+                  'Strength of Schedule; a rating of strength of schedule. The rating is denominated in goals above/below average, where zero is average.',
+                  'Average Goals For Per Game','Average Goals Against Per Game','Power Play Goals','Power Play Opportunities','Power Play Percentage','Power Play Goals Against',
+                  'Power Play Opportunities Against','Penalty Killing Percentage','Short Handed Goals','Short Handed Goals Against','Shots on Goal',' Shooting Percentage','Shots Against',
+                  'Save Percentage','Shooting % + Save %','Shutouts')
+#descriptions for attributes in scoring regular season
+Scoring_descrip = c('Name of Player','Number of Games Played', 'Goals Scored','Assists', 'Points','Plus/Minus: -1 when on the ice when opposing team scores and +1 when player team scores. Total for season',
+                    'Penalty Minutes', 'Number of Goals Scored at 5 on 5', 'Number of Goals Scored Short Handed', 'Number of Power Play Goals', 'Number of Game Winning Goals', 'Number ofAssists at 5 on 5',
+                    'Number of Assists Short Handed', 'Number of Assists on Power Play', 'Shots for season', 'Goals per 100 shots(Goals/Shots)','Time on Ice', 'Average Time on Ice per Game', 
+                    'Share of Points attributed to players offense', 'share of points attributed to players Defense', 'Share of Points Attributed to Player', 'Number of Shots Blocked', 'Number of Hits', 
+                    'Number of Faceoff Wins', 'Number of Faceoff Losses', 'Percentage of Faceoffs Won')
+attribute_descrp <- c(stats_descrip, Scoring_descrip) #combine descriptions into one vector
+#combine names and descriptions into tibble
+data_descrp <- tibble(data_names,
+                      attribute_descrp
+                      )
+#rotate tibble into row with column name.
+data_descrp<-data_descrp%>%
+  pivot_wider(names_from = data_names, values_from = attribute_descrp)
+  
+
 #write_csv(wings_stats_combined, '~/R/Shiny_apps/red_wings_data/data/DET/wings_stats_combined.csv')
 #write_csv(scoring_regular_season_DET_all, '~/R/Shiny_apps/red_wings_data/data/DET/scoring_regular_season_DET_all.csv')
 

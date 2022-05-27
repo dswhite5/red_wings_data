@@ -60,6 +60,13 @@ ui <- navbarPage('Red wings Data Analysis',
                                               h2('Regular Season Scoring for 2008 and 2009'),
                                               tableOutput('scoring_all_1st'), #Plot scoring table
                                               tableOutput('scoring_all_2nd'),
+                                              selectInput('attributes',
+                                                          label = 'Select Attribute',
+                                                          choices = names(data_descrp),
+                                                          selected = 
+                                                          ),
+                                              textOutput('attributes'),
+                                              br(),
                                               p('S% -- Shooting percentage at 5-on-5, a shot is anytime the puck would have went in the net for a goal but the goalie stopped
                                                 it. misses, blocked shots, or hitting the post do not count as shots. Shooting percentage then is the number of goals made
                                                 divided by the number of shots. Essentially how often do you score per 100 shots.'),
@@ -160,6 +167,11 @@ server <- function(input, output){
       select(1,15:27)%>%
       mutate(year = as.integer(year))%>%
       head(2)
+  })
+  # Text output for data attribute description
+  #attribute <- reactive(input$attribute)
+  output$attributes <- renderText({
+    data_descrp[input$attribute][[1]]
   })
   ########output for EDA tab#################################################################################
   ##box showing number of 20 goal scorers per season
