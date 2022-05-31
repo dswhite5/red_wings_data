@@ -84,11 +84,17 @@ ui <- navbarPage('Red wings Data Analysis',
                                     mainPanel(h1('Exploratory Data Analysis'),
                                               p('This is a paragraph about EDA'),
                                               p('Lets Talk about this first plot'),
-                                              plotOutput('Goals_20'),
+                                              selectInput('eda_graphs',
+                                                          label = 'Select Graph',
+                                                          choices = c('20 Goals Scorers',
+                                                                      'Max Goals by Player'),
+                                                          selected = '20 Goals Scorers'
+                                                          ),
+                                              plotOutput('graphs'),
                                               p('gonna talk about this plot too'),
                                               plotOutput('ggpairs_corsi'),
-                                              p('Lets talk about this second plot'),
-                                              plotOutput('ggpairs_shots'),
+                                              #p('Lets talk about this second plot'),
+                                              #plotOutput('ggpairs_shots'),
                                               p('Lets talk about this third plot'),
                                               plotOutput('GF_v_W'),
                                               p('lets talk about this 4th plot'),
@@ -168,15 +174,30 @@ server <- function(input, output){
   })
   ########output for EDA tab#################################################################################
   ##box showing number of 20 goal scorers per season
-  output$Goals_20 <- renderPlot({
-    scoring_regular_season_DET_all%>%
-      filter(Goals >= 20)%>%
-      ggplot()+
-      geom_bar(mapping = aes(x= year), )+
-      labs(title = 'Number of Players with More than 20 Goals per Season',
-           x = 'Final year of Season',
-           y = 'Number of players')+
-      scale_x_continuous(breaks =c(2008:2021))
+  graph = reactive(input$eda_graphs)
+  output$graphs <- renderPlot({
+    if(graph() == '20 Goals Scorers'){
+      scoring_regular_season_DET_all%>%
+        filter(Goals >= 20)%>%
+        ggplot()+
+        geom_bar(mapping = aes(x= year), fill = 'blue')+
+        labs(title = 'Number of Players with More than 20 Goals per Season',
+             x = 'Final year of Season',
+             y = 'Number of players')+
+        theme_classic()+
+        scale_x_continuous(breaks =c(2008:2021))
+    }else if(graph() == 'Max Goals by Player'){
+      scoring_regular_season_DET_all%>%
+        group_by(year)%>%
+        filter(Goals == max(Goals))%>%
+        ggplot()+
+        geom_col(mapping = aes(x=year, y = Goals), fill = 'blue')+
+        labs(title = 'Max Goals by Player per Year',
+             x= 'Last year of Season',
+             y= 'Number of Goals')+
+        theme_classic()+
+        scale_x_continuous(breaks =c(2008:2021))
+  }
   })
   
   #ggpairs(correlation matrix) for selected columns
@@ -187,17 +208,17 @@ server <- function(input, output){
       labs(title = 'Correlation Matrix for Selected Columns Red Wings Statistical Data' )
   })
   #ggpairs(correlation matrix) for selected columns
-  output$ggpairs_shots <- renderPlot({
-    wings_stats_combined%>%
-      select(c(12,30:36))%>%
-      ggpairs()+
-      labs(title = 'Correlation Matrix for Selected Columns Red Wings Statistical Data' )
-  })
+  # output$ggpairs_shots <- renderPlot({
+  #   wings_stats_combined%>%
+  #     select(c(12,30:36))%>%
+  #     ggpairs()+
+  #     labs(title = 'Correlation Matrix for Selected Columns Red Wings Statistical Data' )
+  #})
   #scatter plot of CF% against Wins
   output$CF_percent_v_W <- renderPlot({
     wings_stats_combined%>%
       ggplot()+
-      geom_point(mapping = aes(x=`CF%`, y = W))+ #change titles of scatter plot and axis
+      geom_point(mapping = aes(x=`CF%`, y = W), color = 'blue')+ #change titles of scatter plot and axis
       labs(title = 'Scatter plot of Corsi For Percentage and Wins for the Detroit Red Wings', 
            subtitle = 'For the 2007-2008 season till the 2020-2021 season',
            x = 'Corsi For Percentage (Percentage of shot attempts made by Red Wings)',
@@ -209,7 +230,7 @@ server <- function(input, output){
   output$GF_v_W <- renderPlot({
     wings_stats_combined%>%
       ggplot()+
-      geom_point(mapping = aes(x=`GF`, y = W))+ #change titles of scatter plot and axis
+      geom_point(mapping = aes(x=`GF`, y = W),color = 'blue')+ #change titles of scatter plot and axis
       labs(title = 'Scatter plot of Goals For and Wins for the Detroit Red Wings', 
            subtitle = 'For the 2007-2008 season till the 2020-2021 season',
            x = 'Goals For(number of Goals scored by the Detroit Red Wings',
@@ -220,6 +241,7 @@ server <- function(input, output){
   })
 }
 
+########For stats analysis tab######################
 
 
 #run the shiny app
