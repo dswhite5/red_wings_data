@@ -105,7 +105,9 @@ ui <- navbarPage('Red wings Data Analysis',
                  tabPanel('Statistical Analysis',
                           fluidPage(titlePanel(h1('What Does the Data Say?')),
                                     mainPanel(h1('Linear Regression'),
-                                              p('Lets Talk about linear regression!')
+                                              p('Lets Talk about linear regression!'),
+                                              plotOutput('reg_CFper_W'),
+                                              p('add model summary to output as well')
                                               )
                                     )
                           )
@@ -239,10 +241,42 @@ server <- function(input, output){
       scale_x_continuous(n.breaks = 8)+
       theme_classic()
   })
+  ########For stats analysis tab##########################################
+  lin_reg_CF_percent<- lm(W~`CF%`, data = wings_stats_combined) # linear Regression Formula for Corsi Percent v W
+  
+  #Create string for linear regression formula
+  corsi_percent_form<- paste('Wins = ', 
+                             as.character(round(lin_reg_CF_percent$coefficients[2],2)),
+                             'CF% + ',
+                             as.character(round(lin_reg_CF_percent$coefficients[1],2))
+                             )
+  #Create scatter plot with linear regression line and formula on it
+  output$reg_CFper_W <- renderPlot({
+    wings_stats_combined%>%
+      ggplot()+
+      geom_point(mapping = aes(x=`CF%`,y=W), color = 'blue')+ # creates scatter plot
+      labs(title = 'Linear Relation of Wins and CF%',
+           subtitle = 'For the Detroit Red Wings 2008 - 2021',
+           x = 'Corsi For Percentage',
+           y = 'Number of Wins')+ #create labels
+      geom_smooth(mapping = aes(x=`CF%`, y= W), se = FALSE, method = 'lm')+ #adds linear regression line
+      theme_classic()+ #changes aesthetic
+      annotate(geom = 'rect',  #adds linear regression formula as a string
+               xmin = 55,
+               xmax = 60, 
+               ymin = 20, 
+               ymax = 30, 
+               fill = 'white')+
+      annotate(geom = 'text',
+               x = 57, #location in x and y corrdinates
+               y = 27,
+               label = corsi_percent_form, # string for formula
+               color = "black")
+})
+
+
+
 }
-
-########For stats analysis tab######################
-
 
 #run the shiny app
 
