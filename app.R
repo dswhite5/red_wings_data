@@ -11,14 +11,16 @@ ui <- navbarPage('Red wings Data Analysis',
                  tabPanel('Introduction',
                           fluidPage(titlePanel(h1('Detroit Red Wings')),
                                     mainPanel(h1('A Statistical Look at the Detroit Red Wings'),
-                                              p('This app will try to take a statistica look at the Detroit Red Wings, their decline over the past 14 years and whether
-                                                they will continue to improve. The attempt will be to find something more insightful than "they need to score more goals", 
-                                                but that may be the very thing the redwings need to do. this will also look at the league as a whole and try and determine
-                                                a couple of statistics that help make a team a good nhl team and a playoff contender. Obviously there is more than one
-                                                component tat make a team good. This app tries to find the most important one or two qualities that an NHL team needs to 
-                                                succeed.'),
+                                              p('The Detroit Red Wings are a historic original six Ice hockey team in the National Hockey League(NHL). They were the premier 
+                                                franchise in the NHL for many years but have for the last decade or so been declining. Eventually they hit bottom and were the
+                                                worse team in the NHL by far. This app will try to take a statistical look at the Detroit Red Wings, their decline over the 
+                                                past 14 years and whether they will continue to improve. The attempt will be to find something more insightful than 
+                                                "they need to score more goals", but that may be the very thing the redwings need to do. this will also look at the league
+                                                as a whole and try and determine a couple of statistics that help make a team a good nhl team and a playoff contender. Obviously
+                                                there is more than one component that makes a team good. This app tries to find the most important one or two qualities that an 
+                                                NHL team needs to succeed.'),
                                               p('As a beginning to understanding the data, look below to find the team leader in different statistics for each year. It is
-                                                interesting to note that as the years get closer to 2021 and the team gets worse, not only do the player who lead the team 
+                                                interesting to note that as the years get closer to 2021 and the team gets worse, not only does the player who leads the team 
                                                 each year change, but the numbers get lower as well. Henrik Zetterberg Scores 43 goals in 2008 and no player has scored more 
                                                 since then.'),
                                               fluidRow(column(4,                 # input box to select desired year
@@ -51,19 +53,26 @@ ui <- navbarPage('Red wings Data Analysis',
                                                 Statistics can also seem uncessary as it doesn't take Scotty Bowman(famous NHL and Redwings Coach) to say the current wings 
                                                 need to score more and get scored on less. But the statistics can still help provide insights and those insights are easier
                                                 to see when you have a good understanding of what the data consists of. So this page will take a look at the data this app 
-                                                will be using and what the information in each sheet means."),
-                                              p('Below are the two main tables that will be used for analysis on this site. The data was scraped from project-hockey.com.
-                                                Below the tables are explinations for the terms used in analysis on this site and some of the more commonly used hockey
-                                                statistics.'),
+                                                will be using and what that information means."),
+                                              p('Below are the two main tables that will be used for analysis on this site. The data was scraped from hockey-reference.com.
+                                                Below the tables is a selection box with explinations for the terms in the different columns.'),
                                               h2('Red Wings Statistics for 2008 and 2009'),
+                                              p('The Statistic table below contains stats for Detroit Red Wings the regular season for the seasons 2007-2008 and 2008-2009, 
+                                                the year in the table is the last year of the season. The data for this site contains data from the 2008 season till the 2021 
+                                                season. The stats below are overall team statistics. Meaning that the S% 5v5 is the average shooting percentage 5 on 5 for the
+                                                entire team in the indicated year '
+                                                ),
                                               tableOutput('combined_stats_1st'), #plot stats table
                                               tableOutput('combined_stats_2nd'),
-                                              h2('Regular Season Scoring for 2008 and 2009'),
+                                              h2('Regular Season Scoring for 2008 season'),
+                                              p('The regular Season Scoring Table is for the 2008 season. The stats below are for individual players for an individual season.
+                                                So Game Played is the number of games played by an individual player for that specific season.This site uses the data on all of
+                                                the players for every season from 2008 to 2021.'),
                                               tableOutput('scoring_all_1st'), #Plot scoring table
                                               tableOutput('scoring_all_2nd'),
-                                              selectInput('attributes',
+                                              selectInput('attributes', #this is the selection input to pick a statistic for description
                                                           label = 'Select Attribute',
-                                                          choices = names(data_descrp),
+                                                          choices = names(data_descrp), #names from data_description table from write_csv
                                                           selected = 'Team'
                                                           ),
                                               textOutput('attributes'),
@@ -83,8 +92,15 @@ ui <- navbarPage('Red wings Data Analysis',
                  tabPanel('Exploratory Data Analysis',
                           fluidPage(titlePanel(h1('What are We Looking at?')),
                                     mainPanel(h1('Exploratory Data Analysis'),
-                                              p('This is a paragraph about EDA'),
-                                              p('Lets Talk about this first plot'),
+                                              p('The next step after getting to know what the data consists of, meaning what data you have and what the attributes are, is to try and
+                                                find out a little of what the data might be able to say. Meaning what insights can you glean from the data, is there anything interesting, 
+                                                can the data be shaped into something new? This part of the process is called Exploratory Data Analysis and it is exactly like what it 
+                                                like, exploring. Eventually this site is going to move toward a linear regression of multiple variables to try and determine which variables
+                                                lead to more wins, which is what every sports team wants. But first use the select box below to peruse through some other graphs and to get an
+                                                idea of what else might be interesting in this data set.'),
+                                              p('The plots below show a variety of things that might be looking into, I think the idea of seeing how many 20 goal scorers a team have could be
+                                                interesting, does having a lot of mid level scorers lead to wins? Or having one or two really good scorers? The red wings dont really have either
+                                                of those at the moment. One season was shortened, I think due to a lock out. Can you find it in these graphs?'),
                                               selectInput('eda_graphs',
                                                           label = 'Select Graph',
                                                           choices = c('20 Goals Scorers',
@@ -92,11 +108,19 @@ ui <- navbarPage('Red wings Data Analysis',
                                                           selected = '20 Goals Scorers'
                                                           ),
                                               plotOutput('graphs'),
-                                              p('gonna talk about this plot too'),
+                                              p('Once you have done a little exploring its time to start heading a direction. The direction this site takes is towards trying to find out what stat
+                                                drives winning. To do that I created what is called a scatterplot matrix. The one below is for6 of the variables in the Red Wings Stats data and 
+                                                compared every  variable to W, the number of wins, there are other matrices not shown but if the matrix is too large the site moves to slow. What 
+                                                the matrix shows is a scatter plot for each variable with W and gives the correlation coefficient(C) for each pairing. C is from -1 to 1 with the
+                                                sign giving whether is positively or negatively correlated and the value giving whether the variables are linearly correlated. the closer C is to 1
+                                                the more correlated the variables. So a C of -.9 would have a strong negative linear correlation. This can be seen in the corresponding scatter 
+                                                plots. W and CF% have a correlation coefficient of 0.854, indiciating a strong positive linear relationship, and the scatterplot of those two variables
+                                                the points together look like a line with an upward slope. W and S% 5v5 have a low value of C of 0.212, that scatter plot does not have the obvious
+                                                trend of W and CF%'),
                                               plotOutput('ggpairs_corsi'),
                                               #p('Lets talk about this second plot'),
                                               #plotOutput('ggpairs_shots'),
-                                              p('Lets talk about this third plot'),
+                                              p('Why comparing linearity?'),
                                               plotOutput('GF_v_W'),
                                               p('lets talk about this 4th plot'),
                                               plotOutput('CF_percent_v_W')
