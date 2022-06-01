@@ -218,26 +218,9 @@ server <- function(input, output){
   graph = reactive(input$eda_graphs)
   output$graphs <- renderPlot({
     if(graph() == '20 Goals Scorers'){
-      scoring_regular_season_DET_all%>%
-        filter(Goals >= 20)%>%
-        ggplot()+
-        geom_bar(mapping = aes(x= year), fill = 'blue')+
-        labs(title = 'Number of Players with More than 20 Goals per Season',
-             x = 'Final year of Season',
-             y = 'Number of players')+
-        theme_classic()+
-        scale_x_continuous(breaks =c(2008:2021))
+      goals_scorers
     }else if(graph() == 'Max Goals by Player'){
-      scoring_regular_season_DET_all%>%
-        group_by(year)%>%
-        filter(Goals == max(Goals))%>%
-        ggplot()+
-        geom_col(mapping = aes(x=year, y = Goals), fill = 'blue')+
-        labs(title = 'Max Goals by Player per Year',
-             x= 'Last year of Season',
-             y= 'Number of Goals')+
-        theme_classic()+
-        scale_x_continuous(breaks =c(2008:2021))
+      max_goals
   }
   })
   
