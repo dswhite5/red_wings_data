@@ -1,9 +1,10 @@
 #redwings project
 #shiny app
-#source('load_csv_to_r.R')
 library(tidyverse)
 library(shiny)
 library(GGally)
+#source('load_csv_to_r.R')
+source('static_content.R')
 
 ui <- navbarPage('Red wings Data Analysis',
 #################Tab panel for introduction##############################################################                 
@@ -107,7 +108,21 @@ ui <- navbarPage('Red wings Data Analysis',
                                     mainPanel(h1('Linear Regression'),
                                               p('Lets Talk about linear regression!'),
                                               plotOutput('reg_CFper_W'),
-                                              p('add model summary to output as well')
+                                              p('add model summary to output as well'),
+                                              verbatimTextOutput('all_var'),
+                                              tableOutput('all_var_coeff'),
+                                              verbatimTextOutput('six_var'),
+                                              tableOutput('six_var_coeff'),
+                                              verbatimTextOutput('five_var'),
+                                              tableOutput('five_var_coeff'),
+                                              verbatimTextOutput('four_var'),
+                                              tableOutput('four_var_coeff'),
+                                              verbatimTextOutput('three_var'),
+                                              tableOutput('three_var_coeff'),
+                                              verbatimTextOutput('two_var'),
+                                              tableOutput('two_var_coeff'),
+                                              verbatimTextOutput('one_var'),
+                                              tableOutput('one_var_coeff')
                                               )
                                     )
                           )
@@ -204,11 +219,10 @@ server <- function(input, output){
   
   #ggpairs(correlation matrix) for selected columns
   output$ggpairs_corsi <- renderPlot({
-    wings_stats_combined%>%
-      select(c(12,2:7))%>%
-      ggpairs()+
-      labs(title = 'Correlation Matrix for Selected Columns Red Wings Statistical Data' )
+    ggpairs_corsi #plot code is in static_content.R
   })
+  
+  #This second scatter plot/correlation matrix not necessary and slows program down
   #ggpairs(correlation matrix) for selected columns
   # output$ggpairs_shots <- renderPlot({
   #   wings_stats_combined%>%
@@ -216,65 +230,71 @@ server <- function(input, output){
   #     ggpairs()+
   #     labs(title = 'Correlation Matrix for Selected Columns Red Wings Statistical Data' )
   #})
+  
   #scatter plot of CF% against Wins
   output$CF_percent_v_W <- renderPlot({
-    wings_stats_combined%>%
-      ggplot()+
-      geom_point(mapping = aes(x=`CF%`, y = W), color = 'blue')+ #change titles of scatter plot and axis
-      labs(title = 'Scatter plot of Corsi For Percentage and Wins for the Detroit Red Wings', 
-           subtitle = 'For the 2007-2008 season till the 2020-2021 season',
-           x = 'Corsi For Percentage (Percentage of shot attempts made by Red Wings)',
-           y = 'Wins for the Detroit Red Wings')+
-      scale_y_continuous(n.breaks = 8)+ # number of ticks on axes to 8
-      scale_x_continuous(n.breaks = 8)+
-      theme_classic()
+    CF_percent_v_W #plot code is in static_content.R
   })
   output$GF_v_W <- renderPlot({
-    wings_stats_combined%>%
-      ggplot()+
-      geom_point(mapping = aes(x=`GF`, y = W),color = 'blue')+ #change titles of scatter plot and axis
-      labs(title = 'Scatter plot of Goals For and Wins for the Detroit Red Wings', 
-           subtitle = 'For the 2007-2008 season till the 2020-2021 season',
-           x = 'Goals For(number of Goals scored by the Detroit Red Wings',
-           y = 'Wins for the Detroit Red Wings')+
-      scale_y_continuous(n.breaks = 8)+ # number of ticks on axes to 8
-      scale_x_continuous(n.breaks = 8)+
-      theme_classic()
+    GF_v_W #plot code is in static_content.R
   })
   ########For stats analysis tab##########################################
-  lin_reg_CF_percent<- lm(W~`CF%`, data = wings_stats_combined) # linear Regression Formula for Corsi Percent v W
-  
-  #Create string for linear regression formula
-  corsi_percent_form<- paste('Wins = ', 
-                             as.character(round(lin_reg_CF_percent$coefficients[2],2)),
-                             'CF% + ',
-                             as.character(round(lin_reg_CF_percent$coefficients[1],2))
-                             )
+                             
   #Create scatter plot with linear regression line and formula on it
   output$reg_CFper_W <- renderPlot({
-    wings_stats_combined%>%
-      ggplot()+
-      geom_point(mapping = aes(x=`CF%`,y=W), color = 'blue')+ # creates scatter plot
-      labs(title = 'Linear Relation of Wins and CF%',
-           subtitle = 'For the Detroit Red Wings 2008 - 2021',
-           x = 'Corsi For Percentage',
-           y = 'Number of Wins')+ #create labels
-      geom_smooth(mapping = aes(x=`CF%`, y= W), se = FALSE, method = 'lm')+ #adds linear regression line
-      theme_classic()+ #changes aesthetic
-      annotate(geom = 'rect',  #adds linear regression formula as a string
-               xmin = 55,
-               xmax = 60, 
-               ymin = 20, 
-               ymax = 30, 
-               fill = 'white')+
-      annotate(geom = 'text',
-               x = 57, #location in x and y corrdinates
-               y = 27,
-               label = corsi_percent_form, # string for formula
-               color = "black")
+    reg_CFper_W # plot code is in static_content.R
 })
+  #formula and statistics for multiple linear regression with all chosen variables
+  output$all_var <- renderText({
+    all_var_stat #code in static_content.R
+  })
+  output$all_var_coeff <- renderTable({
+    all_var_coeff #code in static_content.R
+  })
+  
+  #formula and statistics for multiple linear regression with 6 of the chosen variables
+  output$six_var <- renderText({
+    six_var_stat #code in static_content.R
+  })
+  output$six_var_coeff <- renderTable({
+    six_var_coef #code in static_content.R
+  })
 
-
+  #formula and statistics for multiple linear regression with 5 of the chosen variables
+  output$five_var <- renderText({
+    five_var_stat #code in static_content.R
+  })
+  output$five_var_coeff <- renderTable({
+    five_var_coef #code in static_content.R
+  })
+  #formula and statistics for multiple linear regression with 4 of the chosen variables
+  output$four_var <- renderText({
+    four_var_stat #code in static_content.R
+  })
+  output$four_var_coeff <- renderTable({
+    four_var_coef #code in static_content.R
+  })
+  #formula and statistics for multiple linear regression with 3 of the chosen variables
+  output$three_var <- renderText({
+    three_var_stat #code in static_content.R
+  })
+  output$three_var_coeff <- renderTable({
+    three_var_coef #code in static_content.R
+  })
+  #formula and statistics for multiple linear regression with 2 of the chosen variables
+  output$two_var <- renderText({
+    two_var_stat #code in static_content.R
+  })
+  output$two_var_coeff <- renderTable({
+    two_var_coef #code in static_content.R
+  })
+  #formula and statistics for multiple linear regression with 1 of the chosen variables
+  output$one_var <- renderText({
+    one_var_stat #code in static_content.R
+  })
+  output$one_var_coeff <- renderTable({
+    one_var_coef #code in static_content.R
+  })
 
 }
 
