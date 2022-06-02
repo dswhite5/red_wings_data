@@ -7,7 +7,9 @@ library(GGally)
 source('static_content.R')
 
 ui <- navbarPage('Red wings Data Analysis',
-#################Tab panel for introduction##############################################################                 
+#################Tab panel for introduction##############################################################     
+#########################################################################################################
+
                  tabPanel('Introduction',
                           fluidPage(titlePanel(h1('Detroit Red Wings')),
                                     mainPanel(h1('A Statistical Look at the Detroit Red Wings'),
@@ -46,6 +48,7 @@ ui <- navbarPage('Red wings Data Analysis',
                                     )
                           ),
 ######Data Panel starts Here########################################################################
+####################################################################################################
                  tabPanel('Data Description',
                           fluidPage(titlePanel(h1('Statistics and Stuff')),
                                     mainPanel(h1('Hockey Data'),
@@ -89,6 +92,9 @@ ui <- navbarPage('Red wings Data Analysis',
                                               )
                                     )
                           ),
+########################EDA PAge####################################################################################
+####################################################################################################################
+
                  tabPanel('Exploratory Data Analysis',
                           fluidPage(titlePanel(h1('What are We Looking at?')),
                                     mainPanel(h1('Exploratory Data Analysis'),
@@ -163,6 +169,9 @@ ui <- navbarPage('Red wings Data Analysis',
                                               )
                                     )
                           ),
+######################Statistical Analysis Page#####################################################################################
+####################################################################################################################################
+
                  tabPanel('Statistical Analysis',
                           fluidPage(titlePanel(h1('What Does the Data Say?')),
                                     mainPanel(h1('Linear Regression'),
