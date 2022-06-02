@@ -175,8 +175,31 @@ ui <- navbarPage('Red wings Data Analysis',
                  tabPanel('Statistical Analysis',
                           fluidPage(titlePanel(h1('What Does the Data Say?')),
                                     mainPanel(h1('Linear Regression'),
-                                              p('Lets Talk about linear regression!'),
-                                              p('add model summary to output as well'),
+                                              p('So we have already talked about why we are doing linear regression, so let\'s get to doing the linear regression. We have alredy used the correlation matrix to pick
+                                                7 intital variables. Now we are going to run some models and elminate variables based on whether they are contributing to the model. First, lets talk about some terms
+                                                that we will be using to pick those variables and to decide whether the model we are testing is a good one. We will be using three descriptor terms to make judgements
+                                                about which model and variables are good. R-squared, the F-statistic, and p-value.'), 
+                                                p('First is the the R-squared statistic. R-squared, see the R-squared value in the summaries below, is a measure of how good an
+                                                individual model is and is bewteen 0 and 1. I won\'t get too deep into the statistical derivation of R-squared but it is a measure of how much of the variability in
+                                                data is accounted for in the model. So an R-squared value close to one, means a lot of the variability is accounted for. If R-squared is 0.97 lets says, then that means
+                                                that model accounts for 97 percent of the variability in the data. That is an indication that the model being evaluated is a good one, at least typically, it still
+                                                depends on the data that you are looking.'),
+                                              p('Second, the p-value. Again, I dont want to get to technical with the statistics but a p-value is essentailly a measure or whether the variable in question is statistically
+                                                significant. Meaning that it actually contributes to the variability in a dependent variable, sort of. The real meaning behind the p-value is that it is the probability that
+                                                the value of the coefficient of the independent variable coefficient isnt due to chance. Typically we look for p-values under 5% or 0.05. As an example lets say the we have 
+                                                the model W = m*S + n*GF + b. W is wins, S is shots, GF is goals for, m is the coefficient for S, n is the coefficient for GF and b is the intercept. Lets say m =10 and
+                                                n = 3 and b = 7. The final model looks like this then. W = 10*S + 3*GF + 7. The p-value for m is 0.01, and the p-value for n is 0.2. What these mean is that there is a 1% 
+                                                probability that the the value of m is due to chance, but there is a 20% probability that the value for n is due to chance. What do I mean by chance? Well we could ask how
+                                                do we know that numbers that model gives us are accurate? Does the model really describe and predict the dependent variable in question or is the model just random? The 
+                                                answer is we don\'t know! We cant really by sure. But the p-value in this case can give us an estimate of the probability of the coefficient of the particular independent 
+                                                variable being due to chance. That is why we want a p-value less than 0.05. We want a less than 5% chance that the coefficients are just due to randomness.'),
+                                              p('Last is the F statistic. The F-statistic is similar to the p-value, but it is for the model as a whole. A p-value for a model can be calculated, but if there are multiple
+                                                independent variables it can lead to a misleading p-value. One way to think of this is that if you are looking for at least one p-value to be less that 0.05 and you have 20
+                                                independent variables, chances are there will be one p-value less than 0.05 just based on the number of variables. So F statistic does something similar to the p-value but
+                                                but accounts for when there is more than one independent variable. That is a simplified explanation but it enough fo what we need right now. The value of the F stastic though
+                                                is not a percentage, so it can get very large. The numbers we are looking for though are F-statistics significantly greater than 1. NOw the next question might be what does
+                                                significantly mean but I will leave that for another time.'),
+                                              p('Back Wards Selection'),
                                               verbatimTextOutput('all_var'),
                                               tableOutput('all_var_coeff'),
                                               verbatimTextOutput('six_var'),
