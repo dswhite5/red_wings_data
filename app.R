@@ -175,6 +175,7 @@ ui <- navbarPage('Red wings Data Analysis',
                  tabPanel('Statistical Analysis',
                           fluidPage(titlePanel(h1('What Does the Data Say?')),
                                     mainPanel(h1('Linear Regression'),
+                                              h3('Model Descriptors'),
                                               p('So we have already talked about why we are doing linear regression, so let\'s get to doing the linear regression. We have alredy used the correlation matrix to pick
                                                 7 intital variables. Now we are going to run some models and elminate variables based on whether they are contributing to the model. First, lets talk about some terms
                                                 that we will be using to pick those variables and to decide whether the model we are testing is a good one. We will be using three descriptor terms to make judgements
@@ -184,6 +185,7 @@ ui <- navbarPage('Red wings Data Analysis',
                                                 data is accounted for in the model. So an R-squared value close to one, means a lot of the variability is accounted for. If R-squared is 0.97 lets says, then that means
                                                 that model accounts for 97 percent of the variability in the data. That is an indication that the model being evaluated is a good one, at least typically, it still
                                                 depends on the data that you are looking.'),
+                                              
                                               p('Second, the p-value. Again, I dont want to get to technical with the statistics but a p-value is essentailly a measure or whether the variable in question is statistically
                                                 significant. Meaning that it actually contributes to the variability in a dependent variable, sort of. The real meaning behind the p-value is that it is the probability that
                                                 the value of the coefficient of the independent variable coefficient isnt due to chance. Typically we look for p-values under 5% or 0.05. As an example lets say the we have 
@@ -192,28 +194,79 @@ ui <- navbarPage('Red wings Data Analysis',
                                                 probability that the the value of m is due to chance, but there is a 20% probability that the value for n is due to chance. What do I mean by chance? Well we could ask how
                                                 do we know that numbers that model gives us are accurate? Does the model really describe and predict the dependent variable in question or is the model just random? The 
                                                 answer is we don\'t know! We cant really by sure. But the p-value in this case can give us an estimate of the probability of the coefficient of the particular independent 
-                                                variable being due to chance. That is why we want a p-value less than 0.05. We want a less than 5% chance that the coefficients are just due to randomness.'),
+                                                variable being due to chance. That is why we want a p-value less than 0.05. We want a less than 5% chance that the coefficients are just due to randomness. In the summaries 
+                                                below, the p-value is under the column Pr(>|t|)'),
+                                              
                                               p('Last is the F statistic. The F-statistic is similar to the p-value, but it is for the model as a whole. A p-value for a model can be calculated, but if there are multiple
                                                 independent variables it can lead to a misleading p-value. One way to think of this is that if you are looking for at least one p-value to be less that 0.05 and you have 20
                                                 independent variables, chances are there will be one p-value less than 0.05 just based on the number of variables. So F statistic does something similar to the p-value but
                                                 but accounts for when there is more than one independent variable. That is a simplified explanation but it enough fo what we need right now. The value of the F stastic though
-                                                is not a percentage, so it can get very large. The numbers we are looking for though are F-statistics significantly greater than 1. NOw the next question might be what does
-                                                significantly mean but I will leave that for another time.'),
-                                              p('Back Wards Selection'),
+                                                is not a percentage, so it can get very large. The numbers we are looking for though are F-statistics significantly greater than 1 which indicates that at least one coefficient
+                                                in the model is not equal to 0. Now the next question might be what does "significantly" mean but I will leave that for another time.'),
+                                              
+                                              h3('Backwards Selection'),
+                                              p('Now that we have an idea of what all of the terms mean. We can start to do some backwards selection and develop the best model based on the chosen variables. First we start
+                                                with a model that contains all of the variables we picked from the correlation matrix. This model is shown below. When there are more than 1 or two variables, it gets very 
+                                                difficult to give a graphical representation of the model. So we are going to be using model summaries from here on out. We run the first model and check the F-statistic and
+                                                then check p-values. We dont want any variable with a p-value greater than 0.05 in the model. This threshold is negotiable, but for this analysis we are using 0.05. Now if there
+                                                are multiple variable with p-values greater than 0.05 we dont eliminate all of them, we eliminate the worst one and run the model. We repeat this process until every remaining
+                                                variable meets the 5% threshold.'),
+                                              
+                                              p('Let\'s start with a model with all of the correlation matrix variables and see what that looks like. The model numbers are going to correspond with the number of independent 
+                                                variables. So this first model is model 7.'),
+                                              
+                                              h4('Model 7'),
                                               verbatimTextOutput('all_var'),
                                               tableOutput('all_var_coeff'),
+                                              p('For Model 7 we have an R-squared value of 0.971 and an F statistic of 28.2. I am not going to list all of the p-values but none of them are below 0.05. But this is not abnormal
+                                                for a model of this size. Now we have a R-squared value close to one and an F-statistic far above 1, do we need to remove variables? The answer is yes. While a couple of variables
+                                                are below a 10% threshold none of them are below the 5% threshhold. And remember, an F stastic above one doesnt mean the model is good, but means that it is likely that one of the 
+                                                coefficients is non-zero. If you want to know more about what that means, look up hypothesis testing for multiple linear regression. So we are going to edit the model and we do this
+                                                by removing the variable with the highest p-value and see what that model looks like. The varaible to be removed is PPOA which is power play opportunities against.'),
+                                              
+                                              h4('Model 6'),
                                               verbatimTextOutput('six_var'),
                                               tableOutput('six_var_coeff'),
+                                              p('For model 6 PPOA is removed and we have 6 indpendent variables. We have an R-squared of 0.968 and an F-statisic of 35.1. Now at first glance we might think "hey the R-squared value
+                                                went down, isnt that bad?" and the answer is technically yes, We are technically accounting for a little less of the variability in W. But it didn\'t go down very far. There is always
+                                                going to be an increase in R-squared if you add another variable to your model, but how much it goes is important, if you eliminate a variable that might be making your model less 
+                                                accurate, while only minimally reducing R-squared, that is a better overall model, even if the R-squared is smaller.'),
+                                              p('Looking at the p-values the intercept is now below our threshold, but none of the independent variables are. So we eliminate another variable, this time its PPO or Power Play 
+                                                Opportunities.'),
+                                              
+                                              h4('Model 5'),
                                               verbatimTextOutput('five_var'),
                                               tableOutput('five_var_coeff'),
+                                              p('In Model 5 we finally get to two variable that meet the 5% threshold, but there are still several variables the do not. The r-squared and F-statistic still look good. So we eliminate
+                                                another variable, this time S or shots. We repeat this process and eliminate PP or power play goals and then GF/G which is goals for per game. When we eventually get to model 2 we are
+                                                left with only two variables that both meet the 5% threshold.'),
+                                              
+                                              h4('Model 4'),
                                               verbatimTextOutput('four_var'),
                                               tableOutput('four_var_coeff'),
+                                              p(''),
+                                              
+                                              h4('Model 3'),
                                               verbatimTextOutput('three_var'),
                                               tableOutput('three_var_coeff'),
+                                              p(''),
+                                              
+                                              h4('Model 2'),
                                               verbatimTextOutput('two_var'),
                                               tableOutput('two_var_coeff'),
+                                              p('So now have a linear model that has a high R-squared value and high F-statisic. Both of the variables meet the less than 5% percent threshold. Both variables say 0.00 but this is just due
+                                                rounding errors. The p-values are just very small. Lets first check and see what happens if we eliminate another variable. We can\'t see it on here due to rounding, but the p-value for CF% is
+                                                smaller, so we eliminate GF and run one last model.'),
+                                              
+                                              h4('Model 1'),
                                               verbatimTextOutput('one_var'),
-                                              tableOutput('one_var_coeff')
+                                              tableOutput('one_var_coeff'),
+                                              p('Notice when we run this model that the p-value is still below the threshold, but the F-statistic when down for the first time and the R-squared value is drastically different. This is
+                                                an example of when the change in R-squared is big enough that the variable that was eliminated should be added back into the model. We account for a lot more of the variation in W with GF
+                                                included and its p-value is below the desired threshold. So the linear model we are using is the Model 2 with GF and CF% as the independent variables.'),
+                                              
+                                              h3('What it all Means'),
+                                              p('')
                                               )
                                     )
                           )
