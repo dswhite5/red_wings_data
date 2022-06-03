@@ -43,7 +43,22 @@ ui <- navbarPage('Red wings Data Analysis',
                                                                           )
                                                        )
                                                       ),
-                                              tableOutput('stat_table')
+                                              tableOutput('stat_table'),
+                                              br(),
+                                              br(),
+                                              br(),
+                                              br(),
+                                              fluidRow(column(4,
+                                                              tags$h6("Github code"),
+                                                              tags$a(href="https://github.com/dswhite5/red_wings_data", 
+                                                                     "Github")
+                                                              ),
+                                                       column(4,
+                                                              tags$h6("Resume Blog"),
+                                                              tags$a(href="https://david-seth-white.netlify.app/", 
+                                                                     "blog")
+                                                              )
+                                                       )
                                               )
                                     )
                           ),
@@ -266,7 +281,29 @@ ui <- navbarPage('Red wings Data Analysis',
                                                 included and its p-value is below the desired threshold. So the linear model we are using is the Model 2 with GF and CF% as the independent variables.'),
                                               
                                               h3('What it all Means'),
-                                              p('')
+                                              p('Now we finally have our model. It looks like something like this.', strong('W = 0.15*GF + 1.3*CF% -60.51'),'Technically the coefficient values are estimates and have margin of errors 
+                                                associated with each value. if you add +/- 2*(standard Error) to each value you would get a 95% percent confidence interval for the value of the coefficients. We are not going to look 
+                                                at that just yet though. First lets talk about how to interpret multiple linear regression. What does our formula tell us. The coefficents of the variables tell the change in W for a 1 
+                                                unit change in the variable given everything else remains the same. So for CF%, a 1 percent change in CF% will result in a 1.3 change in wins given that there is no change in GF. This is
+                                                again ignoring the idea of confidence intervals for now. So how is it applied? Well this model could give Red Wings management an idea of what statistic is going to help them increase the
+                                                number of wins and which statistic is going to do it quicker. Some of this comes down knowing what is easier for the redwings to increase as a team. Maybe management knows that increasing
+                                                CF% is easier that increasing GF or vice versa. The model indicates that CF% and GF are the statistics that have the biggest effect on the number of wins, as opposed to the number of 
+                                                shots, or shooting percentage, or the number of power play opportunities.'),
+                                              p('A couple of points to make about this model though. The first point has to do with the p-values. We picked the variables based on which variables had the lowest p-values until they
+                                                all under the chosen threshold of 0.05. This threshold is called statistical significance and is decided on a calculated statistic called a t-value and where the t-value falls in 
+                                                an associated t-distribution. The thing about the t-distribution is that you want it to be similar to something called a normal distribution and the t-distribution is only close to the
+                                                normal distibution when you have 30 or more instances in your data. If you want to know more about t-distributions and t-values it should be easy to find either on the internet or in a 
+                                                basic statistics text book. The point is that to truly claim statistical significance for our coefficients we need more instances(rows of data) in our data set. Now we could add a few
+                                                more season, but if you go too far back, really early 2000s then there is no longer a salary cap and the strategies for winning and gameplay were different enough that I think they would
+                                                not apply to the game today. The other answer is to add more teams to the analysis to get the number of instances above 30. Which I am planning on doing in the future.'),
+                                              p('A second point is asking the question of does this really matter CF% is really just a statistic about getting more shot attempts on the other team then the other team gets shot attempt 
+                                                on you. And GF is just the number of goals scored. So we created a linear model that tells us the redwings can win more if they score more goals and get more shots than the other team. 
+                                                It doesn\'t take a hall of fame coach to figure that one out. On top of that I point out that we don\'t actually have enough data to really know if the coefficients arent just random 
+                                                numbers that are meaningless. My answer to that is that yes, desptie those valid points it is a useful model. One of the first things I was taught in statistic classes is that all
+                                                models are wrong, but some are useful. So is the model useful? I think so. It does provide evidence that GF and CF% are the important variable to focus on, which is slighly different 
+                                                than focusing on shots, or shooting percentage, or a powerplay. Those can all help with GF or CF% but are just some of a miriad of ways to increase those numbers. It also gives a rate
+                                                at which increasing one of the stats will increase the number of wins. I am not sure which variable is easier, or cheaper, to increase but I have a feeling the redwings management does.
+                                                Future work does need to be done and this model is not perfect but it is also not a bad start to exploring the Red wings from a statistical perspective.')
                                               )
                                     )
                           )
