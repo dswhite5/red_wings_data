@@ -1,0 +1,11 @@
+name: red_wings_data
+title:
+username:
+account: seth-white
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 6426525
+bundleId: 5975123
+url: https://seth-white.shinyapps.io/red_wings_data/
+when: 1654267780.75259
+lastSyncTime: 1654267780.75259
