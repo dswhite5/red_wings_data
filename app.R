@@ -25,14 +25,14 @@ ui <- navbarPage('Red wings Data Analysis',
                                                 interesting to note that as the years get closer to 2021 and the team gets worse, not only does the player who leads the team 
                                                 each year change, but the numbers get lower as well. Henrik Zetterberg Scores 43 goals in 2008 and no player has scored more 
                                                 since then.'),
-                                              fluidRow(column(4,                 # input box to select desired year
+                                              fluidRow(column(4,                 # input box to select desired year, 4 is width of column, all column widths add up to max of twelve
                                                               selectInput('Year', #name to call inputs
                                                                           label = 'Select Year', #label in app
                                                                           choices = c(2008:2021), # choices in Select box
                                                                           selected = 2008 #initial selection
                                                                           )
                                                               ),
-                                                       column(4,                 # input box for to select desired stat
+                                                       column(4,                 # input box for to select desired stat, 4 is width of column, all column widths add up to max of twelve
                                                               selectInput('stat', #name to call inputs
                                                                           label = 'Select Stat', #label in app
                                                                           choices = c('Goals', # choices in select box
@@ -43,11 +43,12 @@ ui <- navbarPage('Red wings Data Analysis',
                                                                           )
                                                        )
                                                       ),
-                                              tableOutput('stat_table'),
+                                              tableOutput('stat_table'), #output table based on selections from input boxes.
                                               br(),
                                               br(),
                                               br(),
                                               br(),
+                                              #row with links to git hub code and personal blog site
                                               fluidRow(column(4,
                                                               tags$h6("Github code"),
                                                               tags$a(href="https://github.com/dswhite5/red_wings_data", 
@@ -94,23 +95,21 @@ ui <- navbarPage('Red wings Data Analysis',
                                                           selected = 'Team'
                                                           ),
                                               textOutput('attributes'),
+                                              br(), #these are break in the text to help appearance of a bottom of page
                                               br(),
                                               br(),
                                               br(),
-                                              br(),
-                                              br(),
-                                              br(),
-                                              br(),
-                                              br(),
+                                              #row with links to git hub code and personal blog site
                                               fluidRow(column(4,
-                                                              tags$h6("Github code"),
-                                                              tags$a(href="https://github.com/dswhite5/red_wings_data", 
-                                                                     "Github")
+                                                              tags$h6("Github code"), #this is title above link
+                                                              tags$a(href="https://github.com/dswhite5/red_wings_data", #this is the link 
+                                                                     "Github" #this is the text that is clicked on.
+                                                                     ) 
                                                               ),
                                                        column(4,
-                                                              tags$h6("Personal Site"),
-                                                              tags$a(href="https://david-seth-white.netlify.app/", 
-                                                                     "blog"
+                                                              tags$h6("Personal Site"), #this is the title above the link
+                                                              tags$a(href="https://david-seth-white.netlify.app/",  #this is the link
+                                                                     "blog" #this text is what is clicked on
                                                                      )
                                                               )
                                                        )
@@ -149,8 +148,6 @@ ui <- navbarPage('Red wings Data Analysis',
                                                 variables the points look like a line with an upward slope. Looking at W and S% 5v5, those variables have a low C value of 0.212, that scatter plot
                                                 does not have the obvious trend of W and CF%'),
                                               plotOutput('ggpairs_corsi'),
-                                              #p('Lets talk about this second plot'),
-                                              #plotOutput('ggpairs_shots'),
                                               p('Lets talk a for brief moment as to why I am choosing linear regression as a stastical model and what that is. There are other models out there that might be a little
                                                 newer, trendier, or more complex than a linear model, so why choose the old stand by. Well, partially because it is the old stand by, most people have
                                                 taken an algebra class and had to plot two points and a line (even if they never enjoyed doing so or thought it would never be useful in real life)
@@ -184,22 +181,21 @@ ui <- navbarPage('Red wings Data Analysis',
                                                   that I can skip based on how correlated the variables are with W. The variable I am picking are GF - goals for,  CF% - Corsi For Percentage, PPO-Power Play
                                                   Opportunities, S- shots, PP - Power play Goals, GF/G - Average Goals per Game, PPOA - Power Play Opportunities against. Once I have all of my variables I 
                                                   can start the backwards selections process to develop my linear model, which is done on the statistical analysis page.'),
+                                              br(), #these are break in the text to help appearance of a bottom of page
                                               br(),
                                               br(),
                                               br(),
-                                              br(),
-                                              br(),
-                                              br(),
-                                              br(),
+                                              #row with links to git hub code and personal blog site
                                               fluidRow(column(4,
-                                                              tags$h6("Github code"),
-                                                              tags$a(href="https://github.com/dswhite5/red_wings_data", 
-                                                                     "Github")
+                                                              tags$h6("Github code"), #this is title above link
+                                                              tags$a(href="https://github.com/dswhite5/red_wings_data", #this is the link 
+                                                                     "Github" #this text is that is clicked on
+                                                                     )
                                                               ),
                                                        column(4,
-                                                              tags$h6("Personal Site"),
-                                                              tags$a(href="https://david-seth-white.netlify.app/", 
-                                                                     "blog"
+                                                              tags$h6("Personal Site"), #this is title above text
+                                                              tags$a(href="https://david-seth-white.netlify.app/", #this is the link 
+                                                                     "blog" #this text is what is clicked on
                                                                      )
                                                               )
                                                        )
@@ -326,19 +322,20 @@ ui <- navbarPage('Red wings Data Analysis',
                                                 than focusing on shots, or shooting percentage, or a powerplay. Those can all help with GF or CF% but are just some of a miriad of ways to increase those numbers. It also gives a rate
                                                 at which increasing one of the stats will increase the number of wins. I am not sure which variable is easier, or cheaper, to increase but I have a feeling the redwings management does.
                                                 Future work does need to be done and this model is not perfect but it is also not a bad start to exploring the Red wings from a statistical perspective.'),
+                                              br(), #these are break in the text to help appearance of a bottom of page
                                               br(),
                                               br(),
                                               br(),
-                                              br(),
+                                              #row with links to git hub code and personal blog site
                                               fluidRow(column(4,
-                                                              tags$h6("Github code"),
-                                                              tags$a(href="https://github.com/dswhite5/red_wings_data", 
-                                                                     "Github")
+                                                              tags$h6("Github code"), #title above link
+                                                              tags$a(href="https://github.com/dswhite5/red_wings_data", #this is the link
+                                                                     "Github") # this text is what is clicked on
                                                               ),
                                                        column(4,
-                                                              tags$h6("Personal Site"),
-                                                              tags$a(href="https://david-seth-white.netlify.app/", 
-                                                                     "blog"
+                                                              tags$h6("Personal Site"), #title above link
+                                                              tags$a(href="https://david-seth-white.netlify.app/", #this is the link
+                                                                     "blog" #this text is what is clinked on
                                                                      )
                                                               )
                                                        )
@@ -351,27 +348,27 @@ server <- function(input, output){
   #######Code for stat sumarry table on introduction page###################################################################
   name <- reactive({input$stat}) #use variable in if else statements
   output$stat_table <- renderTable({
-  if (name() == 'Goals'){
+  if (name() == 'Goals'){ #selection option in input box
     scoring_regular_season_DET_all%>% #summary table for max goals scored in selected year
-      filter(year == input$Year)%>%
-      filter(Goals == max(Goals))%>%
-      select(`Player Name`, Goals)
-  }else if (name() == 'Assists'){
+      filter(year == input$Year)%>% #filter for year selected in input box
+      filter(Goals == max(Goals))%>% #find max goals in selected year
+      select(`Player Name`, Goals) #select only player and goals columns
+  }else if (name() == 'Assists'){ #selection option in input box
     scoring_regular_season_DET_all%>%  # summary table to max assists scored in selected year
-      filter(year == input$Year)%>%
-      filter(Assists == max(Assists))%>%
-      select(`Player Name`, Assists)
+      filter(year == input$Year)%>% #filter for year selected in input box
+      filter(Assists == max(Assists))%>% #find max assists for selected year
+      select(`Player Name`, Assists) #select only player name and assists columns
     
-  }else if (name() == 'Points'){
+  }else if (name() == 'Points'){ #selection option in input box
     scoring_regular_season_DET_all%>% # summary table for max point in selected year
-      filter(year == input$Year)%>%
-      filter(Points == max(Points))%>%
-      select(`Player Name`, Points)
-  }else if (name() == 'PIM'){
+      filter(year == input$Year)%>% #filter for year selected in input box
+      filter(Points == max(Points))%>% #find max points for selected year
+      select(`Player Name`, Points) #select player name and points columns
+  }else if (name() == 'PIM'){ #selection option in input box
     scoring_regular_season_DET_all%>% # summary table for max PIM in selected year
-      filter(year == input$Year)%>%
-      filter(PIM == max(PIM))%>%
-      select(`Player Name`, PIM)
+      filter(year == input$Year)%>% #filter for year selected in input box
+      filter(PIM == max(PIM))%>% #find max penalty minutes for selected year
+      select(`Player Name`, PIM) #select player name and penalty minute columns
   }
     
   })
@@ -379,43 +376,43 @@ server <- function(input, output){
   #Combine stats summary Table 2008 and 2009 1st half
   output$combined_stats_1st <- renderTable({
     wings_stats_combined%>%
-      select(1:18)%>%
-      mutate(year = as.integer(year))%>%
-      head(2)
+      select(1:18)%>% #select columns 1 through 18
+      mutate(year = as.integer(year))%>% #change year to integer to remove decimals
+      head(2) #show only first two rows
   })
   #Combine stats Table 2008 and 2009 2nd half
   output$combined_stats_2nd <- renderTable({
     wings_stats_combined%>%
-      select(1,19:36)%>%
-      head(2)
+      select(1,19:36)%>% #select second half of data table but keep first column for reference
+      head(2)#show only first two rows
   })
   
   #Scoring regular season DET all table 2008 and 2009 1st half
   output$scoring_all_1st <- renderTable({
     scoring_regular_season_DET_all%>%
-      select(1:14)%>%
-      head(2)
+      select(1:14)%>% #select columns 1 through 14
+      head(2) #select first two rows
   })
   #Scoring regular season DET all table 2008 and 2009 2nd half
   output$scoring_all_2nd <- renderTable({
     scoring_regular_season_DET_all%>%
-      select(1,15:27)%>%
-      mutate(year = as.integer(year))%>%
-      head(2)
+      select(1,15:27)%>% #select second half of graph but keep player name for reference
+      mutate(year = as.integer(year))%>% #convert year to integer to remove decimals
+      head(2) #show only first two rows
   })
   # Text output for data attribute description
-  attribute <- reactive(input$attributes)
+  attribute <- reactive(input$attributes) #selection from input box
   output$attributes <- renderText({
-    data_descrp[attribute()][[1]]
+    data_descrp[attribute()][[1]] #description from data table with attributes descriptions
   })
   ########output for EDA tab#################################################################################
   ##box showing number of 20 goal scorers per season
-  graph = reactive(input$eda_graphs)
+  graph = reactive(input$eda_graphs) #reactive input for if/else statements
   output$graphs <- renderPlot({
-    if(graph() == '20 Goals Scorers'){
-      goals_scorers #code in static_content.R
-    }else if(graph() == 'Max Goals by Player'){
-      max_goals #code in static_content.r
+    if(graph() == '20 Goals Scorers'){ #selection from input box
+      goals_scorers # plot graph of number of 20 goal scorers per season. code in static_content.R 
+    }else if(graph() == 'Max Goals by Player'){ #selection from input box
+      max_goals #plot graph showing max goals by an individual player for each season. code in static_content.r
   }
   })
   
@@ -435,69 +432,69 @@ server <- function(input, output){
   
   #scatter plot of CF% against Wins
   output$CF_percent_v_W <- renderPlot({
-    CF_percent_v_W #plot code is in static_content.R
+    CF_percent_v_W #Scatter plot of W vs CF% plot code is in static_content.R
   })
   output$GF_v_W <- renderPlot({
-    GF_v_W #plot code is in static_content.R
+    GF_v_W #scatter plot of W vs GF plot code is in static_content.R
   })
                              
   #Create scatter plot with linear regression line and formula on it
   output$reg_CFper_W <- renderPlot({
-    reg_CFper_W # plot code is in static_content.R
+    reg_CFper_W # scatter plot of W vs CF with regression line and equation on it. plot code is in static_content.R
     })
   
   ########For stats analysis tab##########################################
   
   #formula and statistics for multiple linear regression with all chosen variables
   output$all_var <- renderText({
-    all_var_stat #code in static_content.R
+    all_var_stat #linear model summary of formula, R-squared, and F-statistic with all variables from correlation matrix selection. code in static_content.R
   })
   output$all_var_coeff <- renderTable({
-    all_var_coeff #code in static_content.R
+    all_var_coeff #coefficients estimate table for all variables. code in static_content.R
   })
   
   #formula and statistics for multiple linear regression with 6 of the chosen variables
   output$six_var <- renderText({
-    six_var_stat #code in static_content.R
+    six_var_stat #linear model summary of formula, R-squared, and F-statistic with 6 variables from correlation matrix selection. code in static_content.R
   })
   output$six_var_coeff <- renderTable({
-    six_var_coef #code in static_content.R
+    six_var_coef #Coefficient estimate tables for 6 variables. code in static_content.R
   })
 
   #formula and statistics for multiple linear regression with 5 of the chosen variables
   output$five_var <- renderText({
-    five_var_stat #code in static_content.R
+    five_var_stat #linear model summary of formula, R-squared, and F-statistic with 5 variables from correlation matrix selection. code in static_content.R
   })
   output$five_var_coeff <- renderTable({
-    five_var_coef #code in static_content.R
+    five_var_coef #coefficient estimates table for 5 varaibles. code in static_content.R
   })
   #formula and statistics for multiple linear regression with 4 of the chosen variables
   output$four_var <- renderText({
-    four_var_stat #code in static_content.R
+    four_var_stat #linear model summary of formula, R-squared, and F-statistic with 4 variables from correlation matrix selection. code in static_content.R
   })
   output$four_var_coeff <- renderTable({
-    four_var_coef #code in static_content.R
+    four_var_coef #coefficient estimates table for 4 variables. code in static_content.R
   })
   #formula and statistics for multiple linear regression with 3 of the chosen variables
   output$three_var <- renderText({
-    three_var_stat #code in static_content.R
+    three_var_stat # linear model summary of formula, R-squared, and F-statistic with 3 variables from correlation matrix selection. code in static_content.R
   })
   output$three_var_coeff <- renderTable({
-    three_var_coef #code in static_content.R
+    three_var_coef #coefficients estimates table for 3 variables. code in static_content.R
   })
   #formula and statistics for multiple linear regression with 2 of the chosen variables
   output$two_var <- renderText({
-    two_var_stat #code in static_content.R
+    two_var_stat # linear model summary of formula, R-squared, and F-statistic with 2 variables from correlation matrix selection. code in static_content.R
   })
   output$two_var_coeff <- renderTable({
-    two_var_coef #code in static_content.R
+    two_var_coef #coefficients estimates table for 2 variables code in static_content.R
   })
   #formula and statistics for multiple linear regression with 1 of the chosen variables
   output$one_var <- renderText({
-    one_var_stat #code in static_content.R
+    one_var_stat #linear model summary of formula, R-squared, and F-statistic with one variable from correlation matrix selection. code in static_content.R
   })
   output$one_var_coeff <- renderTable({
-    one_var_coef #code in static_content.R
+    one_var_coef #coefficient estimates table for one variable code in static_content.R
   })
 
 }
