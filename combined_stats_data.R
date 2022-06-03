@@ -94,7 +94,7 @@ data_descrp <- tibble(data_names,
 data_descrp<-data_descrp%>%
   pivot_wider(names_from = data_names, values_from = attribute_descrp)
   
-write_csv(data_descrp, '~/R/Shiny_apps/red_wings_data/data/scoring_stat_data_description.csv')
+write_csv(data_descrp, '~/data/scoring_stat_data_description.csv')
 #write_csv(wings_stats_combined, '~/R/Shiny_apps/red_wings_data/data/DET/wings_stats_combined.csv')
 #write_csv(scoring_regular_season_DET_all, '~/R/Shiny_apps/red_wings_data/data/DET/scoring_regular_season_DET_all.csv')
 
