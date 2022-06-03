@@ -102,8 +102,18 @@ ui <- navbarPage('Red wings Data Analysis',
                                               br(),
                                               br(),
                                               br(),
-                                              br()
-                                              
+                                              fluidRow(column(4,
+                                                              tags$h6("Github code"),
+                                                              tags$a(href="https://github.com/dswhite5/red_wings_data", 
+                                                                     "Github")
+                                                              ),
+                                                       column(4,
+                                                              tags$h6("Personal Site"),
+                                                              tags$a(href="https://david-seth-white.netlify.app/", 
+                                                                     "blog"
+                                                                     )
+                                                              )
+                                                       )
                                               )
                                     )
                           ),
@@ -176,11 +186,23 @@ ui <- navbarPage('Red wings Data Analysis',
                                                   can start the backwards selections process to develop my linear model, which is done on the statistical analysis page.'),
                                               br(),
                                               br(),
-                                              br()
-                                              #I might take these plots out of here
-                                              #plotOutput('GF_v_W'),
-                                              #p('lets talk about this 4th plot'),
-                                              #plotOutput('CF_percent_v_W')
+                                              br(),
+                                              br(),
+                                              br(),
+                                              br(),
+                                              br(),
+                                              fluidRow(column(4,
+                                                              tags$h6("Github code"),
+                                                              tags$a(href="https://github.com/dswhite5/red_wings_data", 
+                                                                     "Github")
+                                                              ),
+                                                       column(4,
+                                                              tags$h6("Personal Site"),
+                                                              tags$a(href="https://david-seth-white.netlify.app/", 
+                                                                     "blog"
+                                                                     )
+                                                              )
+                                                       )
                                               )
                                     )
                           ),
@@ -303,7 +325,23 @@ ui <- navbarPage('Red wings Data Analysis',
                                                 models are wrong, but some are useful. So is the model useful? I think so. It does provide evidence that GF and CF% are the important variable to focus on, which is slighly different 
                                                 than focusing on shots, or shooting percentage, or a powerplay. Those can all help with GF or CF% but are just some of a miriad of ways to increase those numbers. It also gives a rate
                                                 at which increasing one of the stats will increase the number of wins. I am not sure which variable is easier, or cheaper, to increase but I have a feeling the redwings management does.
-                                                Future work does need to be done and this model is not perfect but it is also not a bad start to exploring the Red wings from a statistical perspective.')
+                                                Future work does need to be done and this model is not perfect but it is also not a bad start to exploring the Red wings from a statistical perspective.'),
+                                              br(),
+                                              br(),
+                                              br(),
+                                              br(),
+                                              fluidRow(column(4,
+                                                              tags$h6("Github code"),
+                                                              tags$a(href="https://github.com/dswhite5/red_wings_data", 
+                                                                     "Github")
+                                                              ),
+                                                       column(4,
+                                                              tags$h6("Personal Site"),
+                                                              tags$a(href="https://david-seth-white.netlify.app/", 
+                                                                     "blog"
+                                                                     )
+                                                              )
+                                                       )
                                               )
                                     )
                           )
