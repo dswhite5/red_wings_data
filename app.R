@@ -1,10 +1,10 @@
 #redwings project
 #shiny app
-library(tidyverse)
+library(tidyverse) # load in library
 library(shiny)
 library(GGally)
-#source('load_csv_to_r.R')
-source('static_content.R')
+source('load_csv_to_r.R') #writes relavent data tables from csv to R environment
+source('static_content.R') #code for graphs and other static content on site
 
 ui <- navbarPage('Red wings Data Analysis',
 #################Tab panel for introduction##############################################################     
@@ -54,7 +54,7 @@ ui <- navbarPage('Red wings Data Analysis',
                                                                      "Github")
                                                               ),
                                                        column(4,
-                                                              tags$h6("Resume Blog"),
+                                                              tags$h6("Personal Site"),
                                                               tags$a(href="https://david-seth-white.netlify.app/", 
                                                                      "blog")
                                                               )
