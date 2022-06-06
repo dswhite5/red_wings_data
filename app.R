@@ -13,17 +13,17 @@ ui <- navbarPage('Red wings Data Analysis',
                  tabPanel('Introduction',
                           fluidPage(titlePanel(h1('Detroit Red Wings')),
                                     mainPanel(h1('A Statistical Look at the Detroit Red Wings'),
-                                              p('The Detroit Red Wings are a historic original six Ice hockey team in the National Hockey League(NHL). They were the premier 
+                                              p('The Detroit Red Wings are a historic original six ice hockey team in the National Hockey League(NHL). They were the premier 
                                                 franchise in the NHL for many years but have for the last decade or so been declining. Eventually they hit bottom and were the
                                                 worse team in the NHL by far. This app will try to take a statistical look at the Detroit Red Wings, their decline over the 
                                                 past 14 years and whether they will continue to improve. The attempt will be to find something more insightful than 
-                                                "they need to score more goals", but that may be the very thing the redwings need to do. this will also look at the league
-                                                as a whole and try and determine a couple of statistics that help make a team a good NHL team and a playoff contender. Obviously
-                                                there is more than one component that makes a team good. This app will try to find the one or two most important qualities that an 
+                                                "they need to score more goals", but that may be the very thing the redwings need to do. This will also look at the league
+                                                as a whole and try to determine a couple of statistics that help influence whether a team a good NHL team and a playoff contender. Obviously
+                                                there is more than one component that makes a good team. However, this app will try to find the one or two most important qualities that an 
                                                 NHL team needs to succeed.'),
                                               p('As a beginning to understanding the data, look below to find the team leader in different statistics for each year. It is
                                                 interesting to note that as the years get closer to 2021 and the team gets worse, not only does the player who leads the team 
-                                                each year change, but the numbers get lower as well. Henrik Zetterberg Scores 43 goals in 2008 and no player has scored more 
+                                                each year change, but the numbers get lower as well. For example, Henrik Zetterberg Scores 43 goals in 2008 and no player has scored more 
                                                 since then.'),
                                               fluidRow(column(4,                 # input box to select desired year, 4 is width of column, all column widths add up to max of twelve
                                                               selectInput('Year', #name to call inputs
@@ -69,23 +69,23 @@ ui <- navbarPage('Red wings Data Analysis',
                           fluidPage(titlePanel(h1('Statistics and Stuff')),
                                     mainPanel(h1('Hockey Data'),
                                               p("Sports statistics can be tricky and confusing, especially when the terms are not given a detailed description. Sports 
-                                                Statistics can also seem unnecessary as it doesn't take Scotty Bowman(famous NHL and Redwings Coach) to say the current wings 
-                                                need to score more and get scored on less. But the statistics can still help provide insights and those insights are easier
-                                                to see when you have a good understanding of what the data consists of. So, this page will take a look at the data this app 
+                                                statistics can also seem unnecessary, as it doesn't take a hockey expert to say that the current Red Wings 
+                                                need to score more and get scored on less. But, the statistics can still help provide insights and those insights are easier
+                                                to see when you have a good understanding of what the data consists of. So, this page will take a look at the data this website 
                                                 will be using and what that information means."),
                                               p('Below are the two main tables that will be used for analysis on this site. The data was scraped from hockey-reference.com.
                                                 Below the tables is a selection box with explanations for the terms in the different columns.'),
                                               h2('Red Wings Statistics for 2008 and 2009'),
-                                              p('The Statistic table below contains stats for Detroit Red Wings the regular season for the seasons 2007-2008 and 2008-2009, 
-                                                the year in the table is the last year of the season. The data for this site contains data from the 2008 season till the 2021 
+                                              p('The statistic table below contains stats for the Detroit Red Wings, regular season, for the seasons 2007-2008 and 2008-2009. 
+                                                The year column in the table is the last year of the associated season. The data for this site contains data from the 2008 season till the 2021 
                                                 season. The stats below are overall team statistics. Meaning that the S% 5v5 is the average shooting percentage 5 on 5 for the
-                                                entire team in the indicated year '
+                                                entire team in the indicated year. '
                                                 ),
                                               tableOutput('combined_stats_1st'), #plot stats table
                                               tableOutput('combined_stats_2nd'),
                                               h2('Regular Season Scoring for 2008 season'),
-                                              p('The regular Season Scoring Table is for the 2008 season. The stats below are for individual players for an individual season.
-                                                So Game Played is the number of games played by an individual player for that specific season. This site uses the data on all
+                                              p('The Regular Season Scoring Table is for the 2008 season. The stats below are for individual players for an individual season.
+                                                So, Games Played is the number of games played by an individual player for that specific season. This site uses the data on all
                                                 the players for every season from 2008 to 2021.'),
                                               tableOutput('scoring_all_1st'), #Plot scoring table
                                               tableOutput('scoring_all_2nd'),
@@ -124,13 +124,13 @@ ui <- navbarPage('Red wings Data Analysis',
                                     mainPanel(h1('Exploratory Data Analysis'),
                                               p('The next step after getting to know what the data consists of, meaning what data you have and what the attributes are, is to try and
                                                 find out a little of what the data might be able to say. Meaning what insights can you glean from the data, is there anything interesting, 
-                                                can the data be shaped into something new? This part of the process is called Exploratory Data Analysis and it is exactly like what it 
-                                                like, exploring. Eventually this site is going to move toward a linear regression of multiple variables to try and determine which variables
-                                                lead to more wins, which is what every sports team wants. But first use the select box below to peruse through some other graphs and to get an
-                                                idea of what else might be interesting in this data set.'),
-                                              p('The plots below show a variety of things that might be worth looking into, I think the idea of seeing how many 20 goal scorers a team has could be
-                                                interesting, does having a lot of mid level scorers lead to wins? Or having one or two really good scorers? The red wings don\'t really have either
-                                                of those at the moment. One season was shortened, I think due to a lock out, Can you find it in these graphs?'),
+                                                can the data be shaped into something new? This part of the process is called Exploratory Data Analysis. Eventually this site is going to 
+                                                move toward a linear regression of multiple variables to try and determine which variableslead to more wins, which is what every sports 
+                                                team wants would like to know.'), 
+                                                p('But first use the select box below to peruse through some other graphs to get an idea of what else might be interesting in this data set.
+                                                  The plots below show a variety of things that might be worth looking into. I think the idea of seeing how many 20 goal scorers a team has
+                                                  could be interesting, does having a lot of mid level scorers lead to wins? Or having one or two really good scorers? One season was shortened,
+                                                  I think due to a lock out, Can you find it in these graphs?'),
                                               selectInput('eda_graphs',
                                                           label = 'Select Graph',
                                                           choices = c('20 Goals Scorers',
@@ -138,25 +138,25 @@ ui <- navbarPage('Red wings Data Analysis',
                                                           selected = '20 Goals Scorers'
                                                           ),
                                               plotOutput('graphs'),
-                                              p('Once you have done a little exploring it\'s time to pick a direction. The direction this site takes is towards trying to find out what statistic
-                                                drives winning. To do that I created what is called a scatterplot matrix. The one below is for 6 of the variables in the Red Wings Stats data and 
-                                                compares those variables to W, the number of wins. There are other matrices not shown but if the matrix is too large the site moves to slow. What 
+                                              p('Once you have done a little exploring it\'s time to pick a direction. The direction this site takes is towards trying to find out which statistics
+                                                drive winning. To do that I created what is called a scatterplot matrix. The one below is for 6 of the variables in the Red Wings Stats data and 
+                                                compares those variables to W, the number of wins. There are other matrices not shown but if the matrix is too large the site moves to slow. Therfore, what 
                                                 the matrix shows is a scatter plot for each variable with W and gives the correlation coefficient(C) for each pairing. C is from -1 to 1 with the
                                                 sign giving whether the variable is positively or negatively correlated and the value giving the strength of the correlation. The closer C is to 1
                                                 the more correlated the variables. So a C of -0.9 would have a strong negative linear correlation. This can be seen in the corresponding scatter 
                                                 plots. W and CF% have a correlation coefficient of 0.854, indicating a strong positive linear relationship, and in the scatterplot of those two 
                                                 variables the points look like a line with an upward slope. Looking at W and S% 5v5, those variables have a low C value of 0.212, that scatter plot
-                                                does not have the obvious trend of W and CF%'),
+                                                does not have the obvious trend of W and CF%.'),
                                               plotOutput('ggpairs_corsi'),
-                                              p('Let\'s talk a for brief moment as to why I am choosing linear regression as a statistical model and what linear regression is. There are other models out there that might be a little
+                                              p('Let\'s talk a for brief moment as to why I am choosing linear regression as a statistical model and what exactlylinear regression means. There are other models out there that might be a little
                                                 newer, trendier, or more complex than a linear model. So why choose the old standby? Well, partially because it is the old standby, most people have
                                                 taken an algebra class and had to plot two points and a line (even if they never enjoyed doing so or thought it would never be useful in real life).
-                                                Most people at least recognize the equation y = mx +b, which is a single variable linear model. The dependent variable is y (its value depends on x), and x is the
+                                                Most people at least recognize the equation y = mx +b, which is a single variable linear model. The dependent variable is y (its value depends on x), and x is the 
                                                 independent variable (its value is independent of any other variable). In a linear model a change in x leads to a proportional change in y, scaled by 
-                                                the slope of the line m. the intercept b is the value of y when x = 0, which in real linear models doesn\'t always apply. So this leads to the second reason
+                                                the slope of the line m. The intercept b is the value of y when x = 0, which in real linear models doesn\'t always apply. So this leads to the second reason
                                                 to choose a linear model, it is interpretable. The Red Wings are bad, I want to see what they can do to be good, which means I have to be able to easily
                                                 apply the analysis and linear models are easily interpretable. For the model y= mx + b a change of 1 in x leads to an m size change in y. So a linear model
-                                                seems like it will make easy to see which of the statistics in my data sets are needed to make the number of wins go up. See the linear regression plot 
+                                                seems like it will make it easy to see which of the statistics in my data sets are needed to make the number of wins go up. See the linear regression plot 
                                                 of W vs CF% below for an example of what this looks like. This model would be interpreted as a 1% change in Corsi For Percentage leads to a change of 2.41 
                                                 wins per season. It is interesting to note that the intercept in this case is not regression. The intercept is the number when the dependent variable 
                                                 is equal to 0, not a realistic scenario, and that it would result in a -87 wins, an impossible scenario.'),
